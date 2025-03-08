@@ -1,0 +1,14 @@
+.ipynb_checkpoints/
+chapters/*/data
+chapters/*/assets
+__pycache__/
+_minted/
+chapters/2D_Materials_9_1_014004/src
+*.toc
+*.log
+*.blg
+*.bbl
+*.aux
+*.auxlock
+*.cpt
+*.out
