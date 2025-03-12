@@ -36,7 +36,7 @@ We focus on the almost half-filled case when the number of electrons is one fewe
     \centering
     \subimport{./assets}{Figure_1.pgf}
     % \includegraphics[width=0.9\textwidth]{chapters/PRB_106_L041104_2022/assets/ferromagnetism.pdf}
-    \caption{Phase diagrams of (a) $2\times 2$ plaquette with 3 electrons and (b) $3\times 3$ plaquette with 8 electrons as functions of $F$ and $U$. Points are numerical data and lines are a guide to eye. Different colors correspond to different values of the total spin $S$ defined in Eq.~\eqref{eq:spin}.}
+    \caption{Phase diagrams of a) $2\times 2$ plaquette with 3 electrons and b) $3\times 3$ plaquette with 8 electrons as functions of $F$ and $U$. Points are numerical data and lines are a guide to eye. Different colors correspond to different values of the total spin $S$ defined in Eq.~\eqref{eq:spin}.}
     \label{fig:ferromagnetism}
 \end{figure*}
 
@@ -95,12 +95,12 @@ and $S^y$ and $S^z$ are defined similarly. $\sigma^x$, $\sigma^y$, $\sigma^z$ ar
 %\section{\label{sec:results}Results}
 
 
-Let us first consider a $2\times 2$ cluster. Even though the system is very small, it still reproduces an experimentally realizable situation of a quadruple quantum dot where Nagaoka ferromagnetic ground state was recently observed~\cite{dehollain2020nagaoka}. In Fig.~\ref{fig:ferromagnetism}(a) we show the phase diagram of the system. Since for three electrons there are only two possible values of the total spin, $1/2$ and $3/2$, we find two phases. The horizontal line at $F=0$ corresponds to the standard Hubbard model, and, as expected, the system is antiferromagnetic at $U=0$ and becomes ferromagnetic for $U/t \gtrsim 18.4$.
+Let us first consider a $2\times 2$ cluster. Even though the system is very small, it still reproduces an experimentally realizable situation of a quadruple quantum dot where Nagaoka ferromagnetic ground state was recently observed~\cite{dehollain2020nagaoka}. In Fig.~\ref{fig:ferromagnetism}~a) we show the phase diagram of the system. Since for three electrons there are only two possible values of the total spin, $1/2$ and $3/2$, we find two phases. The horizontal line at $F=0$ corresponds to the standard Hubbard model, and, as expected, the system is antiferromagnetic at $U=0$ and becomes ferromagnetic for $U/t \gtrsim 18.4$.
 
-The main difference between the Hubbard model with $U=0$ and $U\to\infty$, is the ``Gutzwiller projector'' forbidding the appearance of doubly occupied sites~\cite{vollhardt}. Putting $\gamma=0$ has the same consequences as $U\to\infty$ since it makes impossible the creation (as well as annihilation) of doubly occupied and empty sites from a pair of singly occupied sites. This means that with $\gamma=0$ the system behaves as an infinitely strongly correlated one even for small $U$, and one could expect that Nagaoka ferromagnetism arises even if the Coulomb interaction is not large. We indeed observe this behavior in Fig.~\ref{fig:ferromagnetism}(a) where for $\gamma=0$ (in other words, at $F=-1$) ferromagnetism is favored even at very small $U$. At the same time, setting $F$ close enough to $0$, that is considering small $\beta''$, makes ferromagnetism impossible.
+The main difference between the Hubbard model with $U=0$ and $U\to\infty$, is the ``Gutzwiller projector'' forbidding the appearance of doubly occupied sites~\cite{vollhardt}. Putting $\gamma=0$ has the same consequences as $U\to\infty$ since it makes impossible the creation (as well as annihilation) of doubly occupied and empty sites from a pair of singly occupied sites. This means that with $\gamma=0$ the system behaves as an infinitely strongly correlated one even for small $U$, and one could expect that Nagaoka ferromagnetism arises even if the Coulomb interaction is not large. We indeed observe this behavior in Fig.~\ref{fig:ferromagnetism}~a) where for $\gamma=0$ (in other words, at $F=-1$) ferromagnetism is favored even at very small $U$. At the same time, setting $F$ close enough to $0$, that is considering small $\beta''$, makes ferromagnetism impossible.
 
 
-The simple example of a $2\times 2$ cluster already clearly shows qualitatively different roles of the hoppings parameters in Eq.~\eqref{eq:extended}: whereas small $\gamma$ favors ferromagnetism, small $\beta''$ destroys it. In Fig.~\ref{fig:ferromagnetism}(b) we show the phase diagram for a $3\times 3$ cluster with eight electrons. Here, the situation is very similar: for $\gamma=0$ and $U/t \gtrsim 4.2$, Nagaoka ferromagnetic ground state is realized, and for $\beta''=0$ the system is always antiferromagnetic. One additional feature which we observe for a larger system is the stabilization of a non-saturated ferromagnetic phase for small $U$ and $\gamma$. In the Supplemental Material~\cite{supplement} we also provide data for clusters of $5$, $6$, $8$, $10$, $12$, and $13$ sites---they all demonstrate qualitatively similar behavior.
+The simple example of a $2\times 2$ cluster already clearly shows qualitatively different roles of the hoppings parameters in Eq.~\eqref{eq:extended}: whereas small $\gamma$ favors ferromagnetism, small $\beta''$ destroys it. In Fig.~\ref{fig:ferromagnetism}~b) we show the phase diagram for a $3\times 3$ cluster with eight electrons. Here, the situation is very similar: for $\gamma=0$ and $U/t \gtrsim 4.2$, Nagaoka ferromagnetic ground state is realized, and for $\beta''=0$ the system is always antiferromagnetic. One additional feature which we observe for a larger system is the stabilization of a non-saturated ferromagnetic phase for small $U$ and $\gamma$. In the Supplemental Material, we also provide data for clusters of $5$, $6$, $8$, $10$, $12$, and $13$ sites---they all demonstrate qualitatively similar behavior.
 
 % In Figure~\ref{fig:ferromagnetism}(b) we show the phase diagram for a $3\times 3$ plaquette with 8 electrons. For $\gamma=0$ we find that a non-saturated ferromagnetic phase stabilizes for $0 \lesssim U/t \lesssim 2.1$ whereas for larger $U$ Nagaoka ferromagnetic ground state is realized. The data for other system sizes are presented in Supplementa Material; they demonstrate a very similar qualitative behavior.
 
@@ -134,10 +134,5 @@ To conclude, in this work we have analyzed the role of correlated hopping in nar
 
 \section{Additional resources}
 
-\QRListItem{https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.106.L041104/02_supplement.pdf}{Supplemental information contains additional numerical data for other cluster sizes.}
-\QRListItem{https://doi.org/10.5281/zenodo.14924491}{Code to carry out the simulations and data to reproduce figures from this chapter.}
-
-\noindent All figures in this chapter can be generated by running
-\begin{minted}{bash}
-nix build github:twesterhout/phd-thesis#PRB_106_L041104_2022
-\end{minted}
+\QRListItem{https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.106.L041104/02_supplement.pdf}{Supplemental information containing additional numerical data for other cluster sizes.}
+\QRListItem{https://doi.org/10.5281/zenodo.14924491}{Zenodo dataset containing code and data to reproduce all figures from this chapter. The figures can be re-generated by running \texttt{nix build github:twesterhout/phd-thesis\#PRB\_106\_L041104\_2022}.}

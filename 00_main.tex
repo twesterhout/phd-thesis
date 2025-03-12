@@ -1,0 +1,546 @@
+\documentclass[10pt,a4paper,twoside,openany,showtrims]{memoir}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc} % Support for more character glyphs
+\usepackage{graphicx} % Required to include images
+\usepackage{color} % Required for custom colors
+\usepackage{amsmath,amssymb,theorem} % Math packages
+\usepackage{mathtools}
+% \usepackage{xspace} % Provides the ability to use an intelligent space which is used in \institution and \department
+\usepackage{hyperref} % Required for links and changing link options
+% \usepackage{fontspec} % Required for specifying custom fonts in XeTeX
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+\usepackage{etoolbox}
+\usepackage{afterpage}
+% \usepackage{underscore}
+\usepackage[normalem]{ulem} % For use within algorithms
+\usepackage[linesnumbered,lined,vlined,figure]{algorithm2e} % Algorithms
+ 
+% \usepackage{soul}
+% \usepackage{siunitx}
+% \usepackage{tabularx} %Tables
+\usepackage{tabularray} %Tables
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{qrcode}
+\usepackage{calc}
+\usepackage{float}
+% \usepackage[dvipsnames]{xcolor}
+
+\usepackage{notes2bib}
+
+% numbers,sort&compress combines consecutive citations, e.g., we get [1-4] instead of [1,2,3,4]
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{SciPost_bibstyle}
+\usepackage{url}
+\newcommand*{\urlprefix}{}
+\DeclareUrlCommand\EscapeUnderscore{\urlstyle{rm}}
+\newcommand*{\doi}[1]{\href{http://doi.org/#1}{doi:\EscapeUnderscore{#1}}}
+\setlength{\bibsep}{0pt plus 1ex}
+
+
+\midsloppy
+
+
+
+\usepackage{pgf}
+\usepackage{import}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\pgfplotsset{compat=1.15}
+\usepgfplotslibrary{colorbrewer}
+% \usepgfplotslibrary{external} 
+% \tikzexternalize
+
+\pgfplotsset{cycle list/Pastel2-8,}
+
+\def\mathdefault#1{\displaystyle #1}
+\usepackage{framed}
+\newfixedcaption{\innerFigCaption}{figure}
+\newfixedcaption{\innerTableCaption}{table}
+
+\usepackage{cprotect}
+\usepackage{braket}
+\usepackage{lettrine}
+
+\newcommand{\QRLink}[2]{\href{#1}{\XeTeXLinkBox{\qrcode[nolink,height=#2]{#1}}}}
+\newcommand{\QRListItem}[2]{%
+\noindent%
+\adjustbox{valign=t}{\QRLink{#1}{2cm}}%
+\hspace{0.2cm}%
+\adjustbox{valign=t}{\parbox[t]{\textwidth-2.2cm}{#2}}%
+\vspace{6pt}%
+}
+
+\newcommand{\QRReference}[2]{%
+\noindent%
+\adjustbox{valign=t}{\QRLink{#1}{1.5cm}}%
+\hspace{0.2cm}%
+\adjustbox{valign=t}{\parbox[t]{\textwidth-1.7cm}{#2}}%
+\vspace{6pt}%
+}
+
+\newcommand{\AdaptedFrom}[2]{%
+\par\nobreak\vspace*{\fill}%
+\noindent%
+\adjustbox{valign=t}{\parbox[t]{\textwidth-2.2cm}{\raggedleft Adapted from\\#2}}%
+\hspace{0.2cm}%
+\adjustbox{valign=t}{\QRLink{#1}{2cm}}%
+\vspace{6pt}%
+}
+
+\newcommand{\SideFigure}[6]{%
+\normalcaptionwidth%
+\captionwidth{\linewidth}%
+\begin{figure}[h]%
+    \centering%
+    \begin{minipage}[t]{#1}%
+      \centering%
+      \vspace{0pt}%
+      #4%
+    \end{minipage}%
+	\hspace{#2}%
+    \begin{minipage}[t]{#3}%
+      \vspace{7pt}%
+      \centering%
+      \innerFigCaption{#5}
+      \label{#6}
+    \end{minipage}
+\end{figure}
+\changecaptionwidth
+\captionwidth{0.9\linewidth}
+}
+
+
+% \usepackage{showframe}% debugging tool
+
+% Compile first with \usepackage[finalizecache]{minted}
+% This creates the necessary style files.
+% Re-compile with \usepackage[frozencache,cachedir=...]{minted}
+% Click on Submit -> Arxiv to obtain a .zip from Overleaf.
+% Download the minted cache files
+% Download minted.sty and minted1.sty from https://github.com/gpoore/minted/blob/master/source
+% Repack everything and upload to arxiv
+\usepackage{minted}
+% \usepackage[frozencache,cachedir=_minted-output]{minted}
+\usemintedstyle{vs}
+\setminted{fontsize=\small}
+
+\definecolor{myGreen}{rgb}{0.47,0.62,0.11}
+\definecolor{myOrange}{rgb}{0.85,0.37,0.008}
+\newcommand{\cmark}{{\color{myGreen}\Large\ding{51}}}%
+\newcommand{\xmark}{{\color{myOrange}\Large\ding{55}}}%
+
+
+%define colors
+% \definecolor{chapter1}{cmyk}{0.15, 0.71, 0.92, 0.03}
+% \definecolor{chapter2}{cmyk}{0.24, 0.37, 0.32, 0}
+% \definecolor{chapter3}{cmyk}{0.62, 0.85, 0.19, 0.04}
+% \definecolor{chapter4}{cmyk}{0.86, 0.34, 0.51, 0.11}
+% \definecolor{chapter5}{cmyk}{0.85, 0.31, 0.92, 0.20}
+% \definecolor{chapter6}{cmyk}{0.46, 0.48, 0.87, 0.23}
+% \definecolor{chapter7}{cmyk}{0.35, 0.86, 0.84, 0.47}
+
+% Acronyms/Abbreviations
+% \usepackage[acronym,toc,nopostdot,nonumberlist,nogroupskip]{glossaries}
+% \usepackage{glossary-mcols}
+% \renewcommand*\glspostdescription{\dotfill}
+
+% Chapter indicators
+% \usepackage{background}
+% \usepackage{tikz}
+% \usetikzlibrary{calc}
+
+\usepackage{tabularray}
+\usepackage{enumitem,pifont}
+
+% \definecolor{myGreent}{rgb}{0.47,0.62,0.11}
+% \definecolor{myOranget}{rgb}{0.85,0.37,0.008}
+% \newcommand{\cmark}{{\color{myGreent}\Large\ding{51}}}%
+% \newcommand{\xmark}{{\color{myOranget}\Large\ding{55}}}%
+% \usepackage{stix}
+
+% \usepackage{lipsum}
+
+%check for lonely lines at the beginning end of the page
+
+% \clubpenalty10000
+% \widowpenalty10000
+%\displaywidowpenalty=10000 %why do I need this? not use
+% \raggedbottom
+
+%okay but rext is really close to the page numbers
+%\setlength{\topskip}{1.6\topskip} 
+%\checkandfixthelayout 
+%\sloppybottom
+
+% set \clubpenalty, etc. to distinctive values for use 
+% in tracing page breaks. These values are chosen so that 
+% no single penalty will absolutely prohibit a page break, but 
+% certain combinations of two or more will.
+%\clubpenalty=9996 
+%\widowpenalty=9999 
+%\brokenpenalty=4991 
+% Reiterate the default value of \redisplaypenalty, for 
+% completeness. 
+% Set postdisplaypenalty to a fairly high value to discourage a 
+% page break between a display and a widow line at the end of a % paragraph. 
+%\predisplaypenalty=10000 
+%\postdisplaypenalty=1549 
+% And then \displaywidowpenalty should be at least as high as 
+% \postdisplaypenalty, otherwise in a situation where two displays 
+% are separated by two lines, TeX will prefer to break between the 
+% two lines, rather than before the first line. 
+%\displaywidowpenalty=1602
+
+\usepackage{mathspec}
+% \usepackage[default,regular,black]{sourceserifpro}
+% \setmainfont[Path=./assets/fonts/,ItalicFont=californian-fb-italic.ttf,BoldFont=californian-fb-bold.ttf]{californian-fb.ttf}
+% \setmainfont[Path=/nix/store/4f9vkdxfmdv0jcfr4201w7cz4478318j-source-serif-4.005/share/fonts/variable/]{SourceSerif4Variable-Roman.otf}
+\setmainfont[Path=./assets/fonts/,ItalicFont=NeacademiaText-Italic.ttf]{NeacademiaText-Regular.ttf}
+% \setmathsfont(Digits,Latin,Greek)[Path=./assets/fonts/,Extension=.ttf,UprightFont=NeacademiaText-Regular,ItalicFont=NeacademiaText-Italic]{NeacademiaText-Italic.ttf}
+\setmathsfont(Digits,Latin,Greek)[Path=./assets/fonts/,UprightFont=NeacademiaText-Regular.ttf,ItalicFont=NeacademiaText-Italic.ttf]{Neacademia}
+% \newfontfamily\CenturyGothic[Path=./assets/fonts/]{CenturyGothic.ttf}
+
+% The default stock size is set to A4 in \documentclass. For publication, set to trimmed size + bleeds.
+% \setstocksize{24cm}{17cm}
+\settrimmedsize{24cm}{17cm}{*} % Normal thesis size
+% \settrims{5mm}{3mm} % bleeds
+\setlrmarginsandblock{25mm}{20mm}{*} % \setlrmargins{⟨spine⟩}{⟨edge⟩}{⟨ratio⟩}
+\setulmarginsandblock{25mm}{*}{*}
+% \setheadfoot{\onelineskip}{3\onelineskip}
+\setheaderspaces{*}{2.5\onelineskip}{*}
+\checkandfixthelayout[classic]
+
+
+\AtEndPreamble{%
+\apptocmd{\normalsize}{\fontsize{10pt}{14pt}\selectfont}{}{}
+}%
+
+\setsecnumdepth{subsection} % Use numbers for everything down to subsection
+% Font sizes for headings
+\setsecheadstyle{\fontsize{14pt}{17pt}\selectfont\bfseries}
+%\titlespacing*{\section}{0pt}{2cm}{2cm}
+\setsubsecheadstyle{\fontsize{12pt}{15pt}\selectfont\bfseries}
+\setsubsubsecheadstyle{\fontsize{11pt}{14pt}\selectfont\bfseries}
+% before and after spacing for headings
+% see https://tex.stackexchange.com/a/108747
+
+% Captions
+\captionnamefont{\fontsize{8pt}{11pt}\selectfont\bfseries}
+\captiontitlefont{\fontsize{8pt}{11pt}\selectfont}
+\precaption{\vspace{-0.25cm}}
+\postcaption{\vspace{-0.4cm}}
+\changecaptionwidth
+\captionwidth{0.9\linewidth}
+\captiondelim{. }
+
+%Table caption - should be updated later
+\newcommand{\mytablecaption}[2][\@empty]{
+%\captionnamefont{\sffamily\hfill}
+%\captiondelim{\hfill}
+%\captionstyle{\centerlastline\\}
+%\captiontitlefont{\scshape}
+\setlength{\belowcaptionskip}{0.7cm}
+\ifx \@empty#1 \caption{#2}\else \caption[#1]{#2}\fi}
+
+% Create a custom style for headers and footers
+\makepagestyle{MyPageStyle}
+\nouppercaseheads
+\makepsmarks{MyPageStyle}{\createmark{chapter}{left}{nonumber}{}{}}
+\makeoddhead{MyPageStyle}{}{}{\fontsize{10pt}{10pt}\leftmark}
+\makeoddfoot{MyPageStyle}{}{}{\thepage}
+\makeevenhead{MyPageStyle}{\fontsize{10pt}{10pt}Chapter~\thechapter}{}{}
+\makeevenfoot{MyPageStyle}{\thepage}{}{}
+% Set it
+\pagestyle{MyPageStyle}
+
+\copypagestyle{chapter}{plain}
+\makeoddfoot{chapter}{}{}{\thepage}
+\makeevenfoot{chapter}{\thepage}{}{}
+
+% \newcounter{BoxColorCounter}
+% \addtocounter{BoxColorCounter}{-1}
+% \newcommand{\FrameContents}{Draft}
+% \newbool{ShowBackground}
+% \boolfalse{ShowBackground}
+
+% \backgroundsetup{
+%     pages=all,
+%     scale=1,
+%     angle=0,
+%     contents={%
+%         \ifbool{ShowBackground}{%
+%             \ifthenelse{\isodd{\value{page}}}%
+%             {\begin{tikzpicture}[overlay,remember picture]
+%              \node[fill=black!30, inner xsep=9pt, inner ysep=15pt, rectangle, text centered, anchor=north east] 
+%              at ($ (current page.north east) + (-0cm,-2cm -2*\theBoxColorCounter cm) $) 
+%              {{\centering\textcolor{black}{\fontsize{12pt}{12pt}\CenturyGothic\FrameContents\hspace{1mm+\trimedge}}}};
+%              \end{tikzpicture}%
+%             }%
+%             {%
+%              % \begin{tikzpicture}[overlay,remember picture]
+%              % \node[fill=black!30, inner xsep=8pt, inner ysep=15pt, rectangle, text centered, anchor=north west] 
+%              % at ($ (current page.north west) + (-0cm,-2cm -2*\theBoxColorCounter cm) $) 
+%              % {{\centering\textcolor{black}{\fontsize{12pt}{12pt}\CenturyGothic\FrameContents}}};
+%              % \end{tikzpicture}%
+%             }%
+%         }{}
+%     }%
+% }
+
+% \newcommand{\ChapFrame}[1]{%
+%     \renewcommand{\FrameContents}{#1}%
+%     \booltrue{ShowBackground}
+%     \stepcounter{BoxColorCounter}%
+% }
+
+% \newcommand{\ChapFrameStop}{%
+%     \boolfalse{ShowBackground}
+% }
+
+% \makepagestyle{MyPageStyle}{
+% \nouppercaseheads
+% }
+% \makeoddfoot{MyPageStyle}{}{}{\CenturyGothic\thepage}
+% \makeevenfoot{MyPageStyle}{\CenturyGothic\thepage}{}{}
+
+% Custom page style for chapters
+% \makepagestyle{MyChapterStyle}{
+% \nouppercaseheads
+% }
+% \makeoddfoot{MyChapterStyle}{}{}{\CenturyGothic\thepage}
+% \makeevenfoot{MyChapterStyle}{\CenturyGothic\thepage}{}{}
+% Set it
+% \aliaspagestyle{chapter}{MyChapterStyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Code From Texample.net %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \usetikzlibrary{decorations.pathmorphing}
+%
+% \newcommand\setpagenode{%
+%     \expandafter\def\csname pgf@sh@ns@current page\endcsname{rectangle}%
+%     \strictpagecheck%
+%     \checkoddpage%
+%     \ifoddpage%
+%         \expandafter\def\csname pgf@sh@np@current page\endcsname{%
+%           \def\southwest{\pgfpoint{\stockwidth-\paperwidth-2\trimedge}%
+%                                   {\stockheight-2\trimtop-\paperheight}}%
+%           \def\northeast{\pgfpoint{\stockwidth}{\stockheight}}%
+%         }%
+%     \else
+%         \expandafter\def\csname pgf@sh@np@current page\endcsname{%
+%           \def\southwest{\pgfpoint{0}{\stockheight-2\trimtop-\paperheight}}%
+%           \def\northeast{\pgfpoint{2\trimedge+\paperwidth}{\stockheight}}%
+%         }%
+%     \fi
+%     \expandafter\def\csname pgf@sh@nt@current page\endcsname{{1}{0}{0}{1}{0pt}{0pt}}%
+%     \expandafter\def\csname pgf@sh@pi@current page\endcsname{pgfpageorigin}}
+% 
+% \pgfkeys{/tikz/overlay/.add code={}{\setpagenode}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% End Code From Texample.net %%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\usepackage{adjustbox}
+
+% \newlength\UnderlineLength
+% \newcommand{\PublishedIn}{\relax}
+% \newcommand{\PublishedUrl}{}
+% \newcommand{\GraphicalAbstract}{}
+
+% \newcommand{\ThisPageBackground}[1]{%
+% \tikz[remember picture,overlay] \fill [opacity=0.15,color=#1] (current page.north west) rectangle (current page.south east);%
+% }
+% \newcommand{\ThisPageBackgroundColor}{}
+
+% \makechapterstyle{MyFancyChapter}{
+% \renewcommand\chapterheadstart{\boolfalse{ShowBackground}\vspace*{-10pt}}
+% % \renewcommand\chapnamefont{\fontsize{10pt}{10pt}\CenturyGothic} 
+% \renewcommand\chaptitlefont{\fontsize{18pt}{22pt}\selectfont}
+% \renewcommand\chapternamenum{}
+% \renewcommand\printchaptername{}
+% \renewcommand\printchapternum{%
+% \null\hfill\fontsize{80pt}{80pt}\selectfont%
+% Chapter\makebox[2cm]{ \thechapter}%
+% }
+% \setlength{\afterchapskip}{0pt}
+% \renewcommand\afterchapternum{%
+%   \par\nobreak\vskip-72pt%
+%   \hfill\rule{\widthof{Cha} - 2pt}{1pt}\hskip17pt\rule{180pt}{1pt}%
+%   \par\nobreak\vskip\midchapskip%
+% }
+% \renewcommand\printchaptertitle[1]{\chaptitlefont\raggedleft ##1\par}
+% \renewcommand\afterchaptertitle{%
+%   \ifdefempty{\ThisPageBackgroundColor}{%
+%     \relax%
+%   }{%
+%     \ThisPageBackground{\ThisPageBackgroundColor}
+%     % \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{example-image}};%
+%   }%
+%   \ifdefempty{\GraphicalAbstract}{%
+%     \relax%
+%   }{%
+%     \begin{center}%
+%     \vspace{10pt}%
+%     \includegraphics[width=\textwidth,height=7cm,keepaspectratio]{\GraphicalAbstract}%
+%     \end{center}%
+%   }%
+%   \par\nobreak\vspace*{\fill}%
+%   \normalsize%
+%   \parbox[t][3cm]{\textwidth-2.3cm}{\raggedleft\PublishedIn}%
+%   \hspace{0.3cm}%
+%   \parbox[t][3cm]{2cm}{%
+%     \ifdefempty{\PublishedUrl}{%
+%       \relax%
+%     }{%
+%       \adjustbox{valign=t}{\qrcode[height=2cm]{\PublishedUrl}}%
+%     }%
+%   }%
+%   % \par\nobreak%
+%   \newpage% %TODO: FIX ME!!
+% }
+% }
+% \makeatother
+
+
+
+
+
+
+
+
+
+
+% Turn off paragraph indents
+% \setlength{\parindent}{0em}
+
+% Set vertical spacing between paragraphs
+% \setlength{\parskip}{6pt}
+\traditionalparskip
+
+\setbeforesecskip{15pt}
+\setaftersecskip{7pt}
+\setbeforesubsecskip{10pt}
+\setaftersubsecskip{4pt}
+\setbeforesubsubsecskip{4pt}
+\setaftersubsubsecskip{2pt}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+
+\settocdepth{chapter}
+\renewcommand*{\contentsname}{}
+\renewcommand*{\cftchaptername}{\textbf{Chapter}\space}
+\renewcommand*{\cftchapterfont}{}
+\renewcommand*{\cftchapterpresnum}{}
+\renewcommand*{\cftchapterformatpnum}[1]{~#1}
+\renewcommand*{\cftappendixname}{\textbf{Appendix}\space}
+\cftsetindents{chapter}{0em}{3.0em}
+
+
+\newcommand{\MultilineTitle}[1]{{\parbox[t]{252pt}{#1}}}
+% \newcommand{\MultilineTitle}[1]{\protect{\adjustbox{valign=t}{#1}}}
+% \usepackage{xpatch}
+% \makeatletter
+% \xpatchcmd{\l@chapapp}{\settowidth{\@tempdima}{\cftchapterfont\@chapapp@head}}%
+%  {\setlength{\@tempdima}{40pt}}% replace with a hardcoded length
+%  {\typeout{patched ok}}%   went ok
+%  {\typeout{patch failed}}% went bad
+% % \xpatchcmd{\l@chapapp}{#1}%
+% %  {\MultilineTitle{#1}}% replace with a hardcoded length
+% %  {\typeout{patched ok}}%   went ok
+% %  {\typeout{patch failed}}% went bad
+% \makeatother
+
+
+%To change figure counter in Appendix
+\usepackage{chngcntr}
+
+%
+% \usepackage{changes}
+
+
+% \renewcommand*{\maketitlehookb}{\vfill}
+% \titlingpageend{\newpage}{}
+
+\title{\fontsize{22pt}{22pt}Applications of novel programming languages and compilation techniques to accelerating quantum many-body science}
+\author{\fontsize{16pt}{20pt}Tom Westerhout}
+\date{2025}
+
+% \input{Acronyms}
+
+% \newcommand{\oldchapskip}{\beforechapskip}
+
+\setlxvchars[\normalfont]
+\setxlvchars[\normalfont]
+
+\begin{document}
+
+\begin{titlingpage}
+\maketitle
+\end{titlingpage}
+
+\frontmatter*
+
+% \input{Official_Title}
+% \input{Dedication_page}
+
+% Add correct number of pages here
+% \setcounter{page}{7}
+\setlength{\beforechapskip}{0pt}
+\tableofcontents*
+\setlength{\beforechapskip}{50pt}
+
+% \chapterstyle{MyFancyChapter}
+
+\mainmatter
+
+\import{chapters/Introduction}{Chapter}
+\import{chapters/PRB_97_20_205434_2018}{Chapter}
+\import{chapters/2D_Materials_9_1_014004}{Chapter}
+\import{chapters/JOSS_6_64_3537_2021}{Chapter}
+\import{chapters/Proceedings_PAW_ATM_2023}{Chapter}
+\import{chapters/PRB_106_L041104_2022}{Chapter}
+\import{chapters/Nat_Commun_11_1593_2020}{Chapter}
+\import{chapters/Commun_Phys_6_275_2023}{Chapter}
+
+\backmatter
+
+% \aliaspagestyle{chapter}{MyPageStyle}
+% \chapterstyle{default}
+% \setlength{\beforechapskip}{-10pt}
+% \pagestyle{MyPageStyle}
+% \appendix
+% \addtocontents{toc}{\protect\setcounter{tocdepth}{-2}}
+% \input{Appendix_QR}
+% \input{Appendix_3}
+% \input{Appendix_4}
+% \input{Appendix_5}
+% \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+
+
+
+%\pagestyle{MyChapterStyle}
+\nobibintoc
+{\footnotesize\bibliography{80_references}
+} 
+\input{81_data_management}
+% \input{Summary}
+% \input{Russian_summary}
+
+% \renewcommand{\glsmcols}{2}
+% \setglossarystyle{mcolindex}
+% \glsaddall
+% \openany
+% {\fontsize{8pt}{12pt}\selectfont\printglossary[type=\acronymtype, title=List of abbreviations, toctitle=List of abbreviations]}
+% 
+\input{90_publications}
+% 
+% \input{Acknowledgements}
+
+
+
+
+\end{document}

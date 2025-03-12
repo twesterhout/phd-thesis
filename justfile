@@ -1,13 +1,13 @@
 export max_print_line := "10000"
 	
-full: clean bibliography
-	xelatex -shell-escape 00_main.tex \
-		&& bibtex 00_main.aux \
-		&& xelatex -shell-escape 00_main.tex \
-		&& xelatex -shell-escape 00_main.tex
+full: clean
+	xelatex 00_main.tex \
+		&& bibtex 00_main.aux && xelatex 00_main.tex && xelatex 00_main.tex \
+		&& bibtex 00_main.aux && xelatex 00_main.tex && xelatex 00_main.tex \
+		&& xelatex 00_main.tex
 
 once:
-	xelatex -shell-escape 00_main.tex
+	xelatex 00_main.tex
 
 bibliography:
 	rm -f 80_references.bib && papis export --all --format bibtex --out 80_references.bib '*'
