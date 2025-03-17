@@ -255,6 +255,15 @@
 % Set it
 \pagestyle{MyPageStyle}
 
+% Create a custom style for the backmatter
+\makepagestyle{MyBackStyle}
+\nouppercaseheads
+\makepsmarks{MyBackStyle}{\createmark{chapter}{left}{nonumber}{}{}}
+\makeoddhead{MyBackStyle}{}{}{\fontsize{10pt}{10pt}\leftmark}
+\makeoddfoot{MyBackStyle}{}{}{\thepage}
+\makeevenhead{MyBackStyle}{}{}{}
+\makeevenfoot{MyBackStyle}{\thepage}{}{}
+
 \copypagestyle{chapter}{plain}
 \makeoddfoot{chapter}{}{}{\thepage}
 \makeevenfoot{chapter}{\thepage}{}{}
@@ -435,7 +444,12 @@
 \renewcommand*{\cftchaptername}{\textbf{Chapter}\space}
 \renewcommand*{\cftchapterfont}{}
 \renewcommand*{\cftchapterpresnum}{}
-\renewcommand*{\cftchapterformatpnum}[1]{~#1}
+\renewcommand{\@tocrmarg}{3.0em}
+\renewcommand{\@pnumwidth}{2.0em}
+% \renewcommand*{\cftchapterformatpnum}[1]{#1}
+\renewcommand{\cftchapterformatpnum}[1]{%
+    \cftchapterformatpnumhook{#1}%
+    \hb@xt@\@pnumwidth{\hfil #1}}
 \renewcommand*{\cftappendixname}{\textbf{Appendix}\space}
 \cftsetindents{chapter}{0em}{3.0em}
 
@@ -522,7 +536,7 @@
 
 
 
-%\pagestyle{MyChapterStyle}
+\pagestyle{MyBackStyle}
 \nobibintoc
 {\footnotesize\bibliography{80_references}
 } 

@@ -24,7 +24,7 @@ Although the algorithms for dealing with lattice symmetries are well known~\cite
 
 Furthermore, in lattice-symmetries the Hamiltonian itself is never stored. Instead, its matrix elements are computed on the fly, which reduces the memory requirements even more. Care is taken to keep the implementation generic such that different physical systems can be studied, but without sacrificing performance as we will show in the next section.
 
-All in all, lattice-symmetries serves as a foundation for building state-of-the-art ED and VMC (Variational Monte Carlo) applications. For example, SpinED~\cite{SpinED} is an easy-to-use application for exact diagonalization that is built on top of `lattice-symmetries` and can handle clusters of at least 42 spins on a single node.
+All in all, lattice-symmetries serves as a foundation for building state-of-the-art ED and VMC (Variational Monte Carlo) applications. For example, SpinED~\cite{SpinED} is an easy-to-use application for exact diagonalization that is built on top of lattice-symmetries and can handle clusters of at least 42 spins on a single node.
 
 \section{Statement of need}
 
@@ -89,7 +89,7 @@ There are a few projects targeting fermionic systems and the Hubbard model in pa
           ] table [col sep=tab, y expr=\thisrow{spinpack}/\thisrow{ls}]{chapters/JOSS_6_64_3537_2021/spinpack/02_operator_application_1.dat};
       \end{axis}
   \end{tikzpicture}
-  \caption{Performance of matrix-vector products in QuSpin, SPINPACK, and lattice-symmetries. For a Heisenberg Hamiltonian on square lattices of different sizes, we measure the time it takes to do a single matrix-vector product. Timings for lattice-symmetries are normalized to $1$ to show relative speedup compared to QuSpin, with absolute times in seconds listed as well. Depending on the system speedups over QuSpin vary between 5 and 22 times, but in all cases lattice-symmetries is significantly faster.}
+  \caption{Performance of matrix-vector products in QuSpin, SPINPACK, and lattice-symmetries. For a Heisenberg Hamiltonian on square lattices of different sizes, we measure the time it takes to do a single matrix-vector product. Timings for lattice-symmetries are normalized to $1$ to show relative speedup compared to QuSpin, with absolute times in seconds listed as well. Depending on the system, speedups over QuSpin vary between 5 and 22 times, but in all cases lattice-symmetries is significantly faster.}
   \label{fig:ls21:performance}
 \end{figure}
 
@@ -101,13 +101,13 @@ QuSpin is much closer in functionality to lattice-symmetries. It is a high-level
 
 lattice-symmetries is a library implemented in C++ and C. It provides two interfaces:
 \begin{itemize}[topsep=0pt,noitemsep]
-  \item Low-level C interface which can be used to implement ED and VMC applications with focus on performance.
-  \item A higher-level Python wrapper which allows to easily test and prototype algorithms.
+  \item A low-level C interface which can be used to implement ED and VMC applications with focus on performance.
+  \item A higher-level Python wrapper which allows easy testing and prototyping of algorithms.
 \end{itemize}
 
 The library is easily installable via the Conda package manager.
 
-The general workflow is as follows: the user starts by defining a few symmetry generators (\texttt{ls\_symmetry}/\texttt{Symmetry} in C/Python) from which \texttt{lattice-symmetries} automatically constructs the symmetry group (\texttt{ls\_group}/\texttt{Group} in C/Python). The user then proceeds to constructing the Hilbert space basis (\texttt{ls\_spin\_basis}/\texttt{SpinBasis} in C/Python). For some applications functionality provided by \texttt{SpinBasis} may be sufficient, but typically the user will construct one (or multiple) quantum mechanical operators (\texttt{ls\_operator}/\texttt{Operator} in C/Python) corresponding to the Hamiltonian and various observables. \texttt{lattice-symmetries} supports generic 1-, 2-, 3-, and 4-point operators. Examples of Hamiltonians that can be constructed include
+The general workflow is as follows: the user starts by defining a few symmetry generators (\texttt{ls\_symmetry}/\texttt{Symmetry} in C/Python) from which lattice-symmetries automatically constructs the symmetry group (\texttt{ls\_group}/\texttt{Group} in C/Python). The user then proceeds to constructing the Hilbert space basis (\texttt{ls\_spin\_basis}/\texttt{SpinBasis} in C/Python). For some applications functionality provided by \texttt{SpinBasis} may be sufficient, but typically the user will construct one (or multiple) quantum mechanical operators (\texttt{ls\_operator}/\texttt{Operator} in C/Python) corresponding to the Hamiltonian and various observables. lattice-symmetries supports generic 1-, 2-, 3-, and 4-point operators. Examples of Hamiltonians that can be constructed include
 
 \begin{equation*}
 \begin{aligned}
