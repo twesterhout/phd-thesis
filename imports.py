@@ -1,6 +1,7 @@
 import os, re, itertools, h5py as h5, numpy as np, pandas as pd, matplotlib, scipy, scienceplots
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from pathlib import Path
+matplotlib.use("pgf")
 from matplotlib import pyplot as plt
 from matplotlib.collections import LineCollection
 from functools import reduce
