@@ -1,5 +1,6 @@
-{ stdenv
-, fetchFromZenodo
+{ lib
+, stdenv
+, fetchzip
 , python3
 , pythonImports
 , pythonPackages
@@ -10,11 +11,9 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "Commun_Phys_6_275_2023";
   version = "1.1";
-  src = ./.;
-  data = fetchFromZenodo {
-    record = "14973515";
-    file = "experiments.zip";
-    token = "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjEzZjE2MmI5LWY3ODctNGE0Ni1hYTdjLWUxYzI3NDlmNzM4ZCIsImRhdGEiOnt9LCJyYW5kb20iOiI1NmYxM2QxNmMzY2VhYjljOGFiOWJkMjc2MDkxNmQ5YiJ9.wMAVaPZs5U0i2_EITByGsmiTnU2ymZFwYrDK7WLBHpc5xLYqEkb0mHHFv9yqJURH-tVe7xzIJ_t082xbrpDj4g";
+  src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
+  data = fetchzip {
+    url = "https://zenodo.org/records/14973515/files/experiments.zip";
     hash = "sha256-ql5ItRTLE0H+dvBvmKvDhpoHWNF/PKhX0Lcq/9rKV+c=";
   };
   nativeBuildInputs = [ (latexPackages texlive) (pythonPackages python3) ];

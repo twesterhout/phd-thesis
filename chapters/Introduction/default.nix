@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchzip
 , python3
 , pythonImports
@@ -10,7 +11,7 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "Introduction";
   version = "1.0";
-  src = ./.;
+  src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
   nativeBuildInputs = [ (latexPackages texlive) (pythonPackages python3) ];
   configurePhase = ''
     ln --symbolic -v ${pythonImports} imports.py

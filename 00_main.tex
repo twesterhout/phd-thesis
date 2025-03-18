@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,twoside,openany,showtrims]{memoir}
+\documentclass[10pt,a4paper,twoside,openany]{memoir} % showtrims
 
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc} % Support for more character glyphs
@@ -203,7 +203,7 @@
 % \newfontfamily\CenturyGothic[Path=./assets/fonts/]{CenturyGothic.ttf}
 
 % The default stock size is set to A4 in \documentclass. For publication, set to trimmed size + bleeds.
-% \setstocksize{24cm}{17cm}
+\setstocksize{24cm}{17cm}
 \settrimmedsize{24cm}{17cm}{*} % Normal thesis size
 % \settrims{5mm}{3mm} % bleeds
 \setlrmarginsandblock{25mm}{20mm}{*} % \setlrmargins{⟨spine⟩}{⟨edge⟩}{⟨ratio⟩}
@@ -254,6 +254,10 @@
 \makeevenfoot{MyPageStyle}{\thepage}{}{}
 % Set it
 \pagestyle{MyPageStyle}
+ 
+% Create a custom style for the backmatter
+\makepagestyle{MyFrontStyle}
+\nouppercaseheads
 
 % Create a custom style for the backmatter
 \makepagestyle{MyBackStyle}
@@ -492,24 +496,26 @@
 
 \begin{document}
 
+\mainmatter
+\pagestyle{MyFrontStyle}
+
 \begin{titlingpage}
 \maketitle
 \end{titlingpage}
 
-\frontmatter*
+% \frontmatter*
+\pagestyle{MyPageStyle}
 
 % \input{Official_Title}
 % \input{Dedication_page}
 
 % Add correct number of pages here
-% \setcounter{page}{7}
+\setcounter{page}{3}
 \setlength{\beforechapskip}{0pt}
 \tableofcontents*
 \setlength{\beforechapskip}{50pt}
 
 % \chapterstyle{MyFancyChapter}
-
-\mainmatter
 
 \import{chapters/Introduction}{Chapter}
 \import{chapters/PRB_97_20_205434_2018}{Chapter}

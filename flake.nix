@@ -45,32 +45,29 @@
         })
       ];
 
-      fetchFromZenodo = { record, file, token, hash }: final.fetchzip {
-        inherit hash;
-        url = "https://zenodo.org/records/${record}/files/${file}?token=${token}&download=1&preview=1";
-        extension = lib.last (lib.splitString "." file);
-      };
-
       Introduction = final.callPackage ./chapters/Introduction { inherit pythonImports pythonPackages latexPackages; };
       PRB_97_20_205434_2018 = final.callPackage ./chapters/PRB_97_20_205434_2018 { inherit pythonImports pythonPackages latexPackages; };
-      "2D_Materials_9_1_014004" = final.callPackage ./chapters/2D_Materials_9_1_014004 { inherit pythonImports pythonPackages latexPackages; };
+      Materials_9_1_014004 = final.callPackage ./chapters/2D_Materials_9_1_014004 { inherit pythonImports pythonPackages latexPackages; };
       Proceedings_PAW_ATM_2023 = final.callPackage ./chapters/Proceedings_PAW_ATM_2023 { inherit pythonImports pythonPackages latexPackages; };
       PRB_106_L041104_2022 = final.callPackage ./chapters/PRB_106_L041104_2022 { inherit pythonImports pythonPackages latexPackages; };
       Nat_Commun_11_1593_2020 = final.callPackage ./chapters/Nat_Commun_11_1593_2020 { inherit pythonImports pythonPackages latexPackages; };
       Commun_Phys_6_275_2023 = final.callPackage ./chapters/Commun_Phys_6_275_2023 { inherit pythonImports pythonPackages latexPackages; };
+      thesis = final.callPackage ./. { inherit latexPackages; };
     };
   in
   {
     packages = forEachSystem (system: pkgs': let pkgs = pkgs'.extend overlay; in {
       inherit (pkgs)
+        thesis
         Introduction
         PRB_97_20_205434_2018
-        "2D_Materials_9_1_014004"
+        Materials_9_1_014004
         Proceedings_PAW_ATM_2023
         PRB_106_L041104_2022
         Nat_Commun_11_1593_2020
         Commun_Phys_6_275_2023
       ;
+      default = pkgs.thesis;
     });
     devShells = forEachSystem (system: pkgs': let pkgs = pkgs'.extend overlay; in {
       default = pkgs.mkShell {
@@ -78,7 +75,7 @@
         shellHook = ''
           rm -f chapters/Introduction/assets && ln --symbolic ${pkgs.Introduction}/assets chapters/Introduction/assets
           rm -f chapters/PRB_97_20_205434_2018/assets && ln --symbolic ${pkgs.PRB_97_20_205434_2018}/assets chapters/PRB_97_20_205434_2018/assets
-          rm -f chapters/2D_Materials_9_1_014004/assets && ln --symbolic ${pkgs."2D_Materials_9_1_014004"}/assets chapters/2D_Materials_9_1_014004/assets
+          rm -f chapters/2D_Materials_9_1_014004/assets && ln --symbolic ${pkgs.Materials_9_1_014004}/assets chapters/2D_Materials_9_1_014004/assets
           rm -f chapters/Proceedings_PAW_ATM_2023/assets && ln --symbolic ${pkgs.Proceedings_PAW_ATM_2023}/assets chapters/Proceedings_PAW_ATM_2023/assets
           rm -f chapters/PRB_106_L041104_2022/assets && ln --symbolic ${pkgs.PRB_106_L041104_2022}/assets chapters/PRB_106_L041104_2022/assets
           rm -f chapters/Nat_Commun_11_1593_2020/assets && ln --symbolic ${pkgs.Nat_Commun_11_1593_2020}/assets chapters/Nat_Commun_11_1593_2020/assets

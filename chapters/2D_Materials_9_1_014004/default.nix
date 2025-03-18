@@ -1,6 +1,7 @@
-{ stdenv
-, fetchFromZenodo
+{ lib
+, stdenv
 , fetchFromGitHub
+, fetchzip
 , julia-bin
 , python3
 , pythonImports
@@ -12,11 +13,9 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "2D_Materials_9_1_014004_2021";
   version = "1.0";
-  src = ./.;
-  data = fetchFromZenodo {
-    record = "14993549";
-    file = "main.zip";
-    token = "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6IjBhOGJiYmFiLTQ3YWYtNDhlNi1iYzlmLWUyNTBlNTZmYjEzOCIsImRhdGEiOnt9LCJyYW5kb20iOiI1NDFlNWM0YmJiMzUzNWVhZTFmYWRmNjJjNWQ2MjU4YiJ9.5hxOd5jGQcHTUqZJdlXWkbYV8xqxSbQBvnldosqG_toCetZlz7VUFZgoWm490EYRFru9VgvNlHh7G0A9y8owuw";
+  src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
+  data = fetchzip {
+    url = "https://zenodo.org/records/14993549/files/main.zip";
     hash = "sha256-Oq9KdfU4pJpskf+A0mTDbwzEjeZBuTFFwzDOBf97kyc=";
   };
   graphene-plasmons = fetchFromGitHub {

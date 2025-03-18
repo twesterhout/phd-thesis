@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchzip
 , python3
 , pythonImports
@@ -10,11 +11,10 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "PRB_97_20_205434_2018";
   version = "1.0";
-  src = ./.;
+  src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
   data = fetchzip {
-    url = "https://zenodo.org/records/14894183/files/PRB_97_20_205434_2018.zip?download=1&preview=1&token=eyJhbGciOiJIUzUxMiJ9.eyJpZCI6ImE0NmFkZDM1LWUyOTItNGJhZC04OTcxLWQzM2QzMjc0MTA2MCIsImRhdGEiOnt9LCJyYW5kb20iOiJlZWRmMjcyZmZiZjE5ZTdlOTNiYmFjODYyZjFmMmM0ZCJ9.iTp8MLXQNwDqVJPjPOvHDiRMZPI6osKt9o6_1bzTmzWJiWbgxkwMGr2KTWauz_wZOI43oez816MR-EKaXdV0og";
+    url = "https://zenodo.org/records/14894183/files/PRB_97_20_205434_2018.zip";
     hash = "sha256-GjOm4GGsNPsE5McIaxZi62pk1xS9fXvpovqghMmfdjU=";
-    extension = "zip";
   };
   nativeBuildInputs = [ (latexPackages texlive) (pythonPackages python3) ];
   configurePhase = ''

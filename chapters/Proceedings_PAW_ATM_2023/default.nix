@@ -1,4 +1,5 @@
-{ stdenv
+{ lib
+, stdenv
 , fetchzip
 , python3
 , pythonImports
@@ -10,7 +11,7 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "Proceedings_PAW_ATM_2023";
   version = "1.0";
-  src = ./.;
+  src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
   data = fetchzip {
     url = "https://zenodo.org/records/8329984/files/twesterhout/paw-atm-2023-paw-atm-2023.zip";
     hash = "sha256-S6BWt82UCG0zxXOgPCZVB5RDKFxnwZYK30NfDSroNAQ=";
