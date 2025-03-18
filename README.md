@@ -7,6 +7,8 @@ techniques to accelerating quantum many-body science”
 </h3>
 <p>Tom Westerhout</p>
 
+[![CI](https://github.com/twesterhout/phd-thesis/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/twesterhout/phd-thesis/actions/workflows/ci.yml)
+
 </div>
 
 ---
