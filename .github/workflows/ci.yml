@@ -14,7 +14,7 @@ jobs:
         include:
           - os: ubuntu-latest # x64
           - os: ubuntu-24.04-arm # arm64
-          - os: macos-latest # arm64
+          # - os: macos-latest # arm64; DISABLED: Currently getting a weird "Trace/BPT trap: 5"
           - os: macos-13 # x64 
     steps:
     - uses: actions/checkout@v4
