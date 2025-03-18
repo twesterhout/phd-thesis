@@ -1,12 +1,12 @@
 {
   description = "My PhD dissertation";
-
-  nixConfig = {
-    allowUnfree = true;
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  };
+  nixConfig = {
+    allowUnfree = true;
+    extra-substituters = [ "https://twesterhout.cachix.org" ];
+    extra-trusted-public-keys = [ "twesterhout.cachix.org-1:AtBrVtHiRtg7piQOwT9IWx3N/+q+lM6RrpxzpeT3zAE=" ];
   };
 
   outputs = inputs:

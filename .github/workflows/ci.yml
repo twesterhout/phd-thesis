@@ -1,4 +1,4 @@
-name: Build and deploy
+name: Tests
 
 on:
   pull_request:
@@ -14,8 +14,8 @@ jobs:
         include:
           - os: ubuntu-latest # x64
           - os: ubuntu-24.04-arm # arm64
-          # - os: macos-latest # arm64
-          # - os: macos-13 # x64 
+          - os: macos-latest # arm64
+          - os: macos-13 # x64 
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
@@ -26,8 +26,16 @@ jobs:
     - name: Build
       run: |
         nix build --accept-flake-config -L
-    # - name: Upload
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Thesis
-    #     path: 'result/*.pdf'
+  deploy:
+    name: Create artifacts
+    runs-on: ubuntu-latest
+    steps:
+    - uses: DeterminateSystems/nix-installer-action@main
+    - name: Build
+      run: |
+        nix build github:twesterhout/phd-thesis --accept-flake-config -L
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Thesis
+        path: 'result/*.pdf'
