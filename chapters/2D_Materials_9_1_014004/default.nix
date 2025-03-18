@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = lib.fileset.toSource { root = ./.; fileset = lib.fileset.difference ./. ./Chapter.tex; };
   data = fetchzip {
     url = "https://zenodo.org/records/14993549/files/main.zip";
-    hash = "sha256-Oq9KdfU4pJpskf+A0mTDbwzEjeZBuTFFwzDOBf97kyc=";
+    hash = "sha256-dPV9UdQi8Ae/wfqUOAtqF7ILSAxoCGNGPCwIXm+0e8Y=";
   };
   graphene-plasmons = fetchFromGitHub {
     owner = "twesterhout";
