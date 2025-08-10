@@ -26,3 +26,4 @@ nix build github:twesterhout/phd-thesis
 - The LaTeX sources for all earlier published works are under the CC-BY-4.0 license.
 - All remaining source code in this repository is published under the [BSD 3-Clause License](./LICENSE).
 - The Neacademia font files in `./assets/fonts` are not my creation and should not be copied or otherwise distributed. See https://rosettatype.com/Neacademia if you would like to use this font in your work.
+- The Iosevka font in `./assets/fonts` is released under the SIL Open Font License, Version 1.1 (Copyright (c) 2015-2025, Renzhi Li).
