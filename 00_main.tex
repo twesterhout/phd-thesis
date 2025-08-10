@@ -114,6 +114,7 @@
 
 % \usepackage{showframe}% debugging tool
 
+\usepackage{xpatch}
 % Compile first with \usepackage[finalizecache]{minted}
 % This creates the necessary style files.
 % Re-compile with \usepackage[frozencache,cachedir=...]{minted}
@@ -123,8 +124,10 @@
 % Repack everything and upload to arxiv
 \usepackage{minted}
 % \usepackage[frozencache,cachedir=_minted-output]{minted}
-\usemintedstyle{vs}
-\setminted{fontsize=\small}
+\usemintedstyle{friendly}
+\setminted{fontsize=\footnotesize}
+\xpatchcmd{\minted}{\VerbatimEnvironment}{\VerbatimEnvironment\let\itshape\relax}{}{}
+
 
 \definecolor{myGreen}{rgb}{0.47,0.62,0.11}
 \definecolor{myOrange}{rgb}{0.85,0.37,0.008}
@@ -197,10 +200,11 @@
 % \usepackage[default,regular,black]{sourceserifpro}
 % \setmainfont[Path=./assets/fonts/,ItalicFont=californian-fb-italic.ttf,BoldFont=californian-fb-bold.ttf]{californian-fb.ttf}
 % \setmainfont[Path=/nix/store/4f9vkdxfmdv0jcfr4201w7cz4478318j-source-serif-4.005/share/fonts/variable/]{SourceSerif4Variable-Roman.otf}
-\setmainfont[Path=./assets/fonts/,ItalicFont=NeacademiaText-Italic.ttf]{NeacademiaText-Regular.ttf}
+\setmainfont[Path=./assets/fonts/,ItalicFont=NeacademiaText-It.ttf]{NeacademiaText-Rg.ttf}
 % \setmathsfont(Digits,Latin,Greek)[Path=./assets/fonts/,Extension=.ttf,UprightFont=NeacademiaText-Regular,ItalicFont=NeacademiaText-Italic]{NeacademiaText-Italic.ttf}
-\setmathsfont(Digits,Latin,Greek)[Path=./assets/fonts/,UprightFont=NeacademiaText-Regular.ttf,ItalicFont=NeacademiaText-Italic.ttf]{Neacademia}
+\setmathsfont(Digits,Latin,Greek)[Path=./assets/fonts/,UprightFont=NeacademiaText-Rg.ttf,ItalicFont=NeacademiaText-It.ttf]{Neacademia}
 % \newfontfamily\CenturyGothic[Path=./assets/fonts/]{CenturyGothic.ttf}
+\setmonofont[Path=./assets/fonts/]{Iosevka-Regular.ttf}
 
 % The default stock size is set to A4 in \documentclass. For publication, set to trimmed size + bleeds.
 \setstocksize{24cm}{17cm}
@@ -481,7 +485,7 @@
 
 
 % \renewcommand*{\maketitlehookb}{\vfill}
-% \titlingpageend{\newpage}{}
+\titlingpageend{\newpage}{}
 
 \title{\fontsize{22pt}{22pt}Applications of novel programming languages and compilation techniques to accelerating quantum many-body science}
 \author{\fontsize{16pt}{20pt}Tom Westerhout}
@@ -506,17 +510,18 @@
 % \frontmatter*
 \pagestyle{MyPageStyle}
 
-% \input{Official_Title}
+\input{10_official_title}
 % \input{Dedication_page}
 
 % Add correct number of pages here
-\setcounter{page}{3}
+\setcounter{page}{5}
 \setlength{\beforechapskip}{0pt}
 \tableofcontents*
 \setlength{\beforechapskip}{50pt}
 
 % \chapterstyle{MyFancyChapter}
 
+\openright
 \import{chapters/Introduction}{Chapter}
 \import{chapters/PRB_97_20_205434_2018}{Chapter}
 \import{chapters/2D_Materials_9_1_014004}{Chapter}
@@ -527,40 +532,15 @@
 \import{chapters/Commun_Phys_6_275_2023}{Chapter}
 
 \backmatter
-
-% \aliaspagestyle{chapter}{MyPageStyle}
-% \chapterstyle{default}
-% \setlength{\beforechapskip}{-10pt}
-% \pagestyle{MyPageStyle}
-% \appendix
-% \addtocontents{toc}{\protect\setcounter{tocdepth}{-2}}
-% \input{Appendix_QR}
-% \input{Appendix_3}
-% \input{Appendix_4}
-% \input{Appendix_5}
-% \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-
-
-
+\openany
 \pagestyle{MyBackStyle}
-% \nobibintoc
-{\footnotesize\bibliography{80_references}
-} 
+{\footnotesize\bibliography{80_references}} 
 \input{81_data_management}
-% \input{Summary}
-% \input{Russian_summary}
-
-% \renewcommand{\glsmcols}{2}
-% \setglossarystyle{mcolindex}
-% \glsaddall
-% \openany
-% {\fontsize{8pt}{12pt}\selectfont\printglossary[type=\acronymtype, title=List of abbreviations, toctitle=List of abbreviations]}
-% 
+\input{85_summary}
+\input{86_samenvatting}
 \input{90_publications}
-% 
-% \input{Acknowledgements}
-
-
+\input{95_acknowledgements}
+\input{99_cv}
 
 
 \end{document}

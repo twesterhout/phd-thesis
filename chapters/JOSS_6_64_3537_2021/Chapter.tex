@@ -1,20 +1,11 @@
-\openleft%
 \chapter{lattice-symmetries: A package for working with quantum many-body bases}\label{ch:ls21}
-% authors:
-%   - name: Tom Westerhout
-%     orcid: 0000-0003-0200-2686
-%     affiliation: 1
-% affiliations:
-%   - name: Institute for Molecules and Materials, Radboud University
-%     index: 1
-% date: 15 March 2021
 
 \AdaptedFrom{https://doi.org/10.21105/joss.03537}{T. Westerhout,\\Journal of Open Source Software, 6(64), 3537 (2021).}
 \clearpage
 
 \section{Summary}
 
-\lettrine[lines=3]{E}{xact} diagonalization (ED) is one of the most reliable and established numerical methods of quantum many-body theory. It is precise, unbiased, and general enough to be applicable to a huge variety of problems in condensed matter physics. Mathematically, ED is a linear algebra problem involving a matrix called the Hamiltonian. For a system of spin-1/2 particles, the size of this matrix scales exponentially (as $\mathcal{O}(2^N)$) with the number of particles, $N$.
+\lettrine[lines=3]{E}{xact} diagonalization (ED) is one of the most reliable and established numerical methods of quantum many-body theory. It is precise, unbiased, and general enough to be applicable to a huge variety of problems in condensed matter physics. Mathematically, ED is a linear algebra problem involving a matrix called the Hamiltonian. For a system of localized spin-1/2 particles, the size of this matrix scales exponentially (as $\mathcal{O}(2^N)$) with the number of particles, $N$.
 
 Very fast scaling of memory requirements with system size is the main computational challenge of the method. There are a few techniques allowing one to lower the amount of storage used by the Hamiltonian. For example, one can store only the nonzero elements of the Hamiltonian. This is beneficial when the Hamiltonian is sparse, which is usually the case in condensed matter physics. One can even take it one step further and avoid storing the matrix altogether by instead computing matrix elements on the fly.
 
@@ -119,7 +110,7 @@ The general workflow is as follows: the user starts by defining a few symmetry g
 
 Here, $\boldsymbol\sigma$ denotes Pauli matrices, $J$ and $\mathbf{D}$ are various coupling constants, and sums over $i$ and $j$ can run over arbitrary used-defined geometries.
 
-\texttt{Operator}s can be efficiently applied to vectors in the Hilbert space (i.e., wavefunctions). Also, in cases when the Hilbert space dimension is so big that the wavefunction cannot be written down explicitly (as a list of coefficients), \texttt{Operator} can be applied to individual spin configurations to implement Monte Carlo local estimators.
+\texttt{Operator}s can be efficiently applied to vectors in the Hilbert space (\textit{i.e.}, wavefunctions). Also, in cases when the Hilbert space dimension is so big that the wavefunction cannot be written down explicitly (as a list of coefficients), \texttt{Operator} can be applied to individual spin configurations to implement Monte Carlo local estimators.
 
 As an example of what can be done with lattice-symmetries, we implemented a standalone application for exact diagonalization studies of spin-1/2 systems, SpinED. By combining lattice-symmetries with the PRIMME eigensolver~\cite{Statho2010Primme}, it allows one to treat systems of at least 42 sites on a single node. SpinED is distributed as a statically-linked executable---one can download one file and immediately get started with physics. All in all, it makes large-scale ED more approachable for non-experts.
 
@@ -127,4 +118,4 @@ Notable research projects using lattice-symmetries and SpinED include~\cite{astr
 
 \section{Additional resources}
 
-\QRListItem{https://github.com/twesterhout/lattice-symmetries/tree/v1}{The source code is available on GitHub. The repository contains scripts for running the benchmarks as well as raw timing data.}
+\QRListItem{https://github.com/twesterhout/lattice-symmetries/tree/v1}{The source code for the lattice-symmetries package is available at \\ \url{https://github.com/twesterhout/lattice-symmetries/tree/v1}. The repository also contains scripts for running the benchmarks and raw timing data. It is released under the 3-Clause BSD license.}

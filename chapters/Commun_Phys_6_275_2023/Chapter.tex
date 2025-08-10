@@ -1,4 +1,3 @@
-\openleft%
 \chapter[Many-body quantum sign structures as non-glassy Ising \ \ \ models][Many-body quantum sign structures as non-glassy Ising models]{Many-body quantum sign structures as non-glassy Ising models}\label{ch:cp23}
 
 {\small The non-trivial phase structure of the eigenstates of many-body quantum systems severely limits the applicability of quantum Monte Carlo, variational, and machine learning methods. Here, we study real-valued signful ground-state wave functions of frustrated quantum spin systems and, assuming that the tasks of finding wave function amplitudes and signs can be separated, show that the signs can be easily bootstrapped from the amplitudes. We map the problem of finding the sign structure to an auxiliary classical Ising model defined on a subset of the Hilbert space basis. We show that the Ising model does not exhibit significant frustrations even for highly frustrated parental quantum systems, and is solvable with a fully deterministic $O(K\log K)$-time combinatorial algorithm (where $K$ is the Ising model size). Given the ground state amplitudes, we reconstruct the signs of the ground states of several frustrated quantum models, thereby revealing the hidden simplicity of many-body sign structures.}
@@ -167,6 +166,8 @@ where both the exact and corrupted wave functions are normalized. Without the no
     O^\mathcal{S} \equiv  \sum_i |\psi^\mathrm{exact}_i|^2 \mathcal{S}_i^\mathrm{exact}\mathcal{S}_i^\mathrm{retrieved}
 \end{equation}
 
+\noindent One can see that the sign structure remains very close to the exact one for $O^\mathcal{A} > 0.8$. For example, for the 16-site Kagome lattice, $O^\mathcal{A} \approx 0.8$ corresponds to $\epsilon \approx 1.45$. The maximal amplitude of the exact ground state is $\max_i |\psi^\mathrm{exact}_i| = 0.0924$, and its corrupted values fall into the range $[0.02, 0.4]$. At first glance, it seems unbelievable that such extreme deformations of amplitudes have mild effect on the sign structure. A possible explanation of this phenomenon is that, due to the peaked nature of the distribution of amplitudes, even strong noise in the amplitudes does not significantly change their order: if $|\psi^\mathrm{exact}_i| \gg |\psi^\mathrm{exact}_j|$, their corrupted counterparts would likely still satisfy $|\psi^\mathrm{corrupt}_i| > |\psi^\mathrm{corrupt}_j|$. The reconstructed sign structure changes very little if this order is not severely altered, irrespective of the concrete values of amplitudes. For random all-to-all connected lattices, the robustness of the sign structure is less striking, but still pronounced.
+
 \SideFigure{0.55\textwidth}{0pt}{0.45\textwidth}{\subimport{assets}{Figure_4.pgf}%
 }{Robustness of the retrieved sign structure. Quality of the sign structure measured by the sign overlap $O^\mathcal{S}$ as a function of the quality of amplitudes measured by the amplitude overlap $O^\mathcal{A}$. For regular lattices, $O^\mathcal{S}$ stays above $0.9$ as long as $O^\mathcal{A}\gtrsim 0.8$. Solid points are median values after running the optimization for a 100 times with a given $\epsilon$. Shades depict interquartile ranges.%
 }{fig:noise_small}
@@ -176,8 +177,6 @@ where both the exact and corrupted wave functions are normalized. Without the no
 %     \includegraphics[width=0.5\textwidth]{./assets_revised/amplitude_vs_sign_overlap.pdf}
 %     \caption{\label{fig:noise_small}\textbf{Robustness of the retrieved sign structure.} Quality of the sign structure measured by the sign overlap $O^\mathcal{S}$ as a function of the quality of amplitudes measured by the amplitude overlap $O^\mathcal{A}$. For regular lattices, $O^\mathcal{S}$ stays above $0.9$ as long as $O^\mathcal{A}\gtrsim 0.8$. Solid points are median values after running the optimization for a 100 times with a given $\epsilon$. Shades depict interquartile ranges.}
 % \end{figure}
-
-\noindent One can see that the sign structure remains very close to the exact one for $O^\mathcal{A} > 0.8$. For example, for the 16-site Kagome lattice, $O^\mathcal{A} \approx 0.8$ corresponds to $\epsilon \approx 1.45$. The maximal amplitude of the exact ground state is $\max_i |\psi^\mathrm{exact}_i| = 0.0924$, and its corrupted values fall into the range $[0.02, 0.4]$. At first glance, it seems unbelievable that such extreme deformations of amplitudes have mild effect on the sign structure. A possible explanation of this phenomenon is that, due to the peaked nature of the distribution of amplitudes, even strong noise in the amplitudes does not significantly change their order: if $|\psi^\mathrm{exact}_i| \gg |\psi^\mathrm{exact}_j|$, their corrupted counterparts would likely still satisfy $|\psi^\mathrm{corrupt}_i| > |\psi^\mathrm{corrupt}_j|$. The reconstructed sign structure changes very little if this order is not severely altered, irrespective of the concrete values of amplitudes. For random all-to-all connected lattices, the robustness of the sign structure is less striking, but still pronounced.
 
 
 \subsection{Finding sign structures of large quantum systems}
@@ -252,53 +251,69 @@ To analyze whether the ground state sign structures were amenable to local optim
 
 The clusters were constructed by choosing a random starting point and then extending the cluster until it reached the desired size. The initial points were obtained by direct sampling from $|\psi|^{1/10}$. This ensured that basis states with both high and low amplitudes were covered, but zero amplitudes (up to numerical noise) were not considered since even ED might not be accurate around those points. Figure~\ref{alg:random-cluster} shows how the initial cluster was extended until it reached the required size.
 
+\begin{figure}
+\begin{minted}[mathescape=true, texcomments=true, escapeinside=@@]{python}
+      def random_cluster_around(@$x$@, @$N$@, @$p$@, @$\mathcal{J}_{ij}$@):
+        C = {@$x$@}
+        while len(C) < @$N$@:
+          for j in (j for i in C for j in @$\mathcal{H}$@ if @$\mathcal{J}_{ij} \neq 0$@):
+            if uniform(0, 1) < @$p$@:
+              C.add(j)
+              if len(C) == @$N$@: break
+        return C
+\end{minted}
+\vspace{-0.2cm}\caption{Create a random cluster around the specified initial point $x$. $N$ is the desired cluster size, $p$ is the probability of keeping a site, $\mathcal{J}_{ij}$ are the couplings of the auxiliary Ising model. In all our simulations, $p$ was set to $1/2$.}
+\label{alg:random-cluster}
+\end{figure}
+
 % \normalem
-\begin{algorithm}[H]\label{alg:random-cluster}
-    \small
-    \DontPrintSemicolon
-    \KwData{$x$---initial point around which the cluster is built;
-            $N$---size of the cluster; \ \ $p$---probability of keeping a site;
-            $\mathcal{J}_{ij}$---couplings of the auxiliary Ising model.}
-    \KwResult{Connected cluster $\mathcal{C}$ of size $N$.}
-        $\mathcal{C} \longleftarrow \{ x \}$\;
-    \While{$\# \mathcal{C} < N$}{
-        $js \longleftarrow \{ j \;|\; \mathcal{J}_{ij} \neq 0, \text{ where } i \in \mathcal{C},\; j \in \mathcal{H} \}$ \;
-        \For{$j \in js$}{
-            $u \longleftarrow \mathrm{Uniform}(0, 1)$\;
-            \If{$u < p$}{
-                $\mathcal{C} \longleftarrow \mathcal{C} \cup \{ j \}$\;
-                \If{$\# \mathcal{C} = N$}{\textbf{break}\;}
-            }
-        }
-    }
-    \vspace{10pt}
-\caption{Create a random cluster around the specified point $x$. In all our simulations, the parameter $p$ was set to $1/2$.}
-\end{algorithm}
+% \begin{algorithm}[H]\label{alg:random-cluster}
+%     \small
+%     \DontPrintSemicolon
+%     \KwData{$x$---initial point around which the cluster is built;
+%             $N$---size of the cluster; \ \ $p$---probability of keeping a site;
+%             $\mathcal{J}_{ij}$---couplings of the auxiliary Ising model.}
+%     \KwResult{Connected cluster $\mathcal{C}$ of size $N$.}
+%         $\mathcal{C} \longleftarrow \{ x \}$\;
+%     \While{$\# \mathcal{C} < N$}{
+%         $js \longleftarrow \{ j \;|\; \mathcal{J}_{ij} \neq 0, \text{ where } i \in \mathcal{C},\; j \in \mathcal{H} \}$ \;
+%         \For{$j \in js$}{
+%             $u \longleftarrow \mathrm{Uniform}(0, 1)$\;
+%             \If{$u < p$}{
+%                 $\mathcal{C} \longleftarrow \mathcal{C} \cup \{ j \}$\;
+%                 \If{$\# \mathcal{C} = N$}{\textbf{break}\;}
+%             }
+%         }
+%     }
+%     \vspace{10pt}
+% \caption{Create a random cluster around the specified point $x$. In all our simulations, the parameter $p$ was set to $1/2$.}
+% \end{algorithm}
 % \ULforem
 
-With the cluster $\mathcal{C}$ at hand, we ran the greedy algorithm on it as well as on its Hamiltonian extensions $\mathcal{C}^{(1)}$ and $\mathcal{C}^{(2)}$ to predict the wave function signs on $\mathcal{C}$. The overlap with the exact ground state, computed on the basis vectors belonging to the cluster, was used to measure the quality of our optimization procedure.
-
-\SideFigure{0.55\textwidth}{0pt}{0.4\textwidth}{\includegraphics[width=0.65\columnwidth]{handmade/greedy_new.pdf}%
+% [width=0.65\columnwidth]
+\SideFigure{0.55\textwidth}{0pt}{0.4\textwidth}{\includegraphics{handmade/greedy_algorithm_idea.pdf}%
 }{The idea of the greedy algorithm. The greedy algorithm first locally optimizes signs connected by strongest couplings.%
 }{fig:greedy}
+
+With the cluster $\mathcal{C}$ at hand, we ran the greedy algorithm on it as well as on its Hamiltonian extensions $\mathcal{C}^{(1)}$ and $\mathcal{C}^{(2)}$ to predict the wave function signs on $\mathcal{C}$. The overlap with the exact ground state, computed on the basis vectors belonging to the cluster, was used to measure the quality of our optimization procedure.
 
 \subsection{Deterministic greedy algorithm for signs reconstruction}
 
 In this section we describe the greedy algorithm for sign structure optimization on a connected sub-graph $G$ of the Ising model, where $G$ can span the entire Hilbert space or a $\mathcal{C}^{(n)}$ extension of some cluster of interest. Each edge $k$ of the graph is a tuple $(i_k, j_k, \mathcal{J}_{i_k, j_k})$ where $i_k$ and $j_k$ are indices of Ising spins connected by the edge $k$.
 
+The idea is to try to minimize the local energies of the strongest edges, Fig. \ref{fig:greedy}. We iterate over edges in decreasing order of their $|\mathcal{J}_{i_k,j_k}|$ and add them to an initially empty graph $G'$. In other words, all nodes in $G'$ have their signs assigned and all nodes in $G \setminus G'$---not yet. For each edge, we use the following heuristic for choosing the signs:
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\textwidth]{handmade/greedy_steps_new.pdf}%width=1\columnwidth]
+    \includegraphics{handmade/greedy_algorithm_steps.pdf}%[width=0.9\textwidth]
     \caption{\textbf{Possible decisions the greedy algorithm makes at every step depending on the states of sites and configurations of already scanned clusters.} Yellow nodes and orange edges belong to $G'$ graph that is being constructed during the algorithm evaluation time.}
     \label{fig:greedy_steps}
 \end{figure}
-    
-The idea is to try to minimize the local energies of the strongest edges, Fig. \ref{fig:greedy}. We iterate over edges in decreasing order of their $|\mathcal{J}_{i_k,j_k}|$ and add them to an initially empty graph $G'$. In other words, all nodes in $G'$ have their signs assigned and all nodes in $G \setminus G'$---not yet. For each edge, we use the following heuristic for choosing the signs:
 
 \begin{itemize}[topsep=0pt, noitemsep]
-    \item If both $i_k$ and $j_k$ are in $G\setminus G'$ (i.e.,  do not yet have signs), we choose $\mathcal{S}_{i_k}$ and $\mathcal{S}_{j_k}$ such that the energy is minimized, or, in other words, such that $\mathcal{J}_{i_k,j_k} \mathcal{S}_{i_k} \mathcal{S}_{j_k} < 0$ (See Fig.~\ref{fig:greedy_steps}~a)).
+    \item If both $i_k$ and $j_k$ are in $G\setminus G'$ (\textit{i.e.},  do not yet have signs), we choose $\mathcal{S}_{i_k}$ and $\mathcal{S}_{j_k}$ such that the energy is minimized, or, in other words, such that $\mathcal{J}_{i_k,j_k} \mathcal{S}_{i_k} \mathcal{S}_{j_k} < 0$ (See Fig.~\ref{fig:greedy_steps}~a)).
     
-    \item If only one of the signs, say, $\mathcal{S}_{i_k}$ is already assigned, we choose $\mathcal{S}_{j_k}$ to minimize the energy, i.e. such that
+    \item If only one of the signs, say, $\mathcal{S}_{i_k}$ is already assigned, we choose $\mathcal{S}_{j_k}$ to minimize the energy, \textit{i.e.}, such that
     \begin{equation*}
         \mathcal{S}_{j_k}
             \sum_{i_n} \mathcal{S}_{i_n} \mathcal{J}_{i_n,j_k} < 0
@@ -314,6 +329,11 @@ The idea is to try to minimize the local energies of the strongest edges, Fig. \
 
 \section{Additional resources}
 
-\QRListItem{https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.106.L041104/02_supplement.pdf}{Supplemental information containing additional numerical data for other cluster sizes.}
-\QRListItem{https://github.com/twesterhout/ising-glass-annealer}{Haskell implementation of the Simulated Annealing and greedy algorithms used in this chapter. The code is available on GitHub.}
-\QRListItem{https://doi.org/10.5281/zenodo.8221179}{Zenodo dataset with the code to carry out the simulations and data to reproduce all figures from this chapter. Figures can be re-generated by running \texttt{nix build github:twesterhout/phd-thesis\#Commun\_Phys\_6\_275\_2023}.}
+\QRListItem{https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.106.L041104/02_supplement.pdf}{The supplemental information containing additional numerical data for other cluster sizes is available at {\small\url{https://journals.aps.org/prb/supplemental/10.1103/PhysRevB.106.L041104/02_supplement.pdf}}.}
+\QRListItem{https://github.com/twesterhout/ising-glass-annealer}{The source code of the ising-glass-annealer package is available at\\ {\small\url{https://github.com/twesterhout/ising-glass-annealer}}. It contains the Haskell implementation of the Simulated Annealing and greedy algorithms used in this chapter. The code is released under the 3-Clause BSD license.}
+\QRListItem{https://doi.org/10.5281/zenodo.8221179}{The raw data supporting the conclusions of this chapter are available at {\small\url{https://doi.org/10.5281/zenodo.8221179}}. The dataset is released under the CC BY 4.0 license.}
+
+\noindent All figures in this chapter can be generated from raw data by running the following command
+\begin{minted}{bash}
+    nix build github:twesterhout/phd-thesis#Commun_Phys_6_275_2023
+\end{minted}

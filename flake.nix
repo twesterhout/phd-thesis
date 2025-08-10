@@ -71,7 +71,7 @@
     });
     devShells = forEachSystem (system: pkgs': let pkgs = pkgs'.extend overlay; in {
       default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ just source-serif (latexPackages pkgs.texlive) (pythonPackages pkgs.python3) ];
+        nativeBuildInputs = with pkgs; [ just (latexPackages pkgs.texlive) (pythonPackages pkgs.python3) ];
         shellHook = ''
           rm -f chapters/Introduction/assets && ln --symbolic ${pkgs.Introduction}/assets chapters/Introduction/assets
           rm -f chapters/PRB_97_20_205434_2018/assets && ln --symbolic ${pkgs.PRB_97_20_205434_2018}/assets chapters/PRB_97_20_205434_2018/assets

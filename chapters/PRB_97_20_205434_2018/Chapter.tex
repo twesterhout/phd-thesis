@@ -1,4 +1,3 @@
-\openleft%
 \chapter{Plasmon confinement in fractal quantum systems}\label{ch:prb18}
 
 {\small Recent progress in materials fabrication has made it possible to create arbitrary non-periodic two-dimensional structures in the quantum plasmon regime. This paves the way for exploring the quantum plasmonic properties of electron gases in complex geometries. In this chapter, we study systems with a fractal dimension.  We calculate the full dielectric functions of two prototypical fractals with different ramification numbers, namely the Sierpinski carpet and gasket. We show that the Sierpinski carpet has a dispersion comparable to a square lattice, but the Sierpinski gasket features highly localized plasmon modes with a flat dispersion. This strong plasmon confinement in finitely ramified fractals can provide a novel setting for manipulating light at the quantum level.}
@@ -87,11 +86,11 @@ $|\mathbf{r}\rangle$ denotes a position eigenvector; $\hat V_\text{C}$ is the Co
 \end{equation}
 We used room temperature $T=300\,\text{K}$ and an inverse relaxation time $\eta = 6\,\text{meV/}\hbar$.
 
-Eqs.~\eqref{eq:prb18:diel_func} allow us to exactly calculate the full dielectric function $\hat\varepsilon(\omega)$ of any tight-binding system without translational invariance. The open source project~\cite{Westerhout2017} lists the computational techniques employed which, despite the $\mathcal{O}(N^4)$ algorithmic complexity, make calculations possible for systems of up to several thousands of sites.
+Eqs.~\eqref{eq:prb18:diel_func} allow us to calculate, within RPA, the full dielectric function $\hat\varepsilon(\omega)$ of any tight-binding system without translational invariance. The open source project~\cite{Westerhout2017} lists the computational techniques employed which, despite the $\mathcal{O}(N^4)$ algorithmic complexity, make calculations possible for systems of up to several thousands of sites.
 
-To visualise the plasmon modes in a quantum mechanical system Wang et al~\cite{wang_plasmonic_2015} introduced the following method. Consider the dielectric function in its spectral decomposition:
+To visualise the plasmon modes in a quantum mechanical system Wang et al~\cite{wang_plasmonic_2015} introduced the following method. Consider the dielectric function in its spectral decomposition~\footnote{In general, left and right eigenvectors of $\hat\varepsilon(\omega)$ may be different. We focus on the right eigenvectors.}:
 \begin{equation}
-    \hat\varepsilon(\omega) = \sum_n \epsilon_n(\omega)|\phi_n(\omega)\rangle
+    \hat\varepsilon(\omega) = \sum_n \epsilon_n(\omega)|\phi_n(\omega)\rangle \langle\phi_n(\omega)|
         \;.
 \end{equation}
 In this method, for each $\omega$ we consider only the eigenvalue $\epsilon_{n_1(\omega)}(\omega)$ that has the highest value of $\;-\operatorname{Im}[1/\epsilon_n(\omega)]$, which gives us the plasmon eigenmode $|\phi_{n_1(\omega)}(\omega)\rangle$ that contributes most to the loss function.
@@ -128,28 +127,33 @@ The real-space loss function of the highest contributing plasmon mode is shown i
     \label{fig:prb18:eigenstates}
 \end{figure}
 
-The real part of the highest contributing plasmon eigenmodes for both the carpet and gasket are shown in Fig. \ref{fig:prb18:eigenstates}. For further analysis, the inverse participation ratio $\operatorname{IPR}(\omega) = \int\!\!\text{d}^d r |\langle \mathbf{r}|\phi_{n_1(\omega)} \rangle|^4$ can give us a measure of localization. The average IPR of $|\phi_{n_1(\omega)}\rangle$ was found to be an order of magnitude higher for the gasket than for the carpet. This can be seen as a consequence of the finite ramification of the gasket, i.e. the fact that it is less connected, and therefore the electrons are more confined and exhibit more localized plasmon eigenmodes. Fig.~\ref{fig:prb18:eigenstates}~d) shows an example of such a highly localized mode.
+The real part of the highest contributing plasmon eigenmodes for both the carpet and gasket are shown in Fig. \ref{fig:prb18:eigenstates}. For further analysis, the inverse participation ratio $\operatorname{IPR}(\omega) = \int\!\!\text{d}^d r |\langle \mathbf{r}|\phi_{n_1(\omega)} \rangle|^4$ can give us a measure of localization. The average IPR of $|\phi_{n_1(\omega)}\rangle$ was found to be an order of magnitude higher for the gasket than for the carpet. This can be seen as a consequence of the finite ramification of the gasket, \textit{i.e.}, the fact that it is less connected, and therefore the electrons are more confined and exhibit more localized plasmon eigenmodes. Fig.~\ref{fig:prb18:eigenstates}~d) shows an example of such a highly localized mode.
 
 \begin{figure*}[t]
     \centering
     \subimport{./assets}{Figure_4.pgf}
     % \includegraphics[width=0.8\textwidth]{./chapters/PRB_97_20_205434_2018/Dispersion}
-    \caption{Dispersion relation $\;-\operatorname{Im}[1 / \langle\mathbf{q}| \hat\varepsilon(\omega) |\mathbf{q}\rangle]$, showing the frequency and momentum dependency of the loss function. Momentum was taken along the $x$--axis. a) A square built out of square lattice as compared to b) the fourth iteration Sierpinski carpet. Similarly, c) a triangle built out of triangular lattice as compared to d) a sixth iteration Sierpinski gasket. The maximum of the left hand side is plotted as a dashed white line on the right hand side.}
+    \caption{Dispersion relation $\;-\!\operatorname{Im}[1 / \langle\mathbf{q}| \hat\varepsilon(\omega) |\mathbf{q}\rangle]$, showing the frequency and momentum dependence of the loss function. Momentum was taken along the $x$--axis. a) A square built out of square lattice as compared to b) the fourth iteration Sierpinski carpet. Similarly, c) a triangle built out of triangular lattice as compared to d) a sixth iteration Sierpinski gasket. The maximum of the left hand side is plotted as a dashed black line on the right hand side.}
     \label{fig:prb18:dispersion}
 \end{figure*}
 
 We now turn to the Fourier transform of the real-space loss function in order to make a comparison to EELS experiments. Fig. \ref{fig:prb18:dispersion} shows the loss function as a function of both $q$ and $\omega$.
 
-There is a close resemblance between the carpet (Fig.~\ref{fig:prb18:dispersion}~a)) and a square sample (Fig. \ref{fig:prb18:dispersion}~b)). The dispersion of the carpet has extra broadening, similar to the broadening found in systems with disorder~\cite{jin_screening_2015}. However, generally speaking, both curves look like a regular $\varepsilon(\omega) \propto \sqrt{q}$ dispersion relation for surface plasmons \cite{giuliani2005quantum}. The carpet exhibits no translational invariance, i.e. $q$ is not actually a good quantum number, so this behavior is quite remarkable. The dispersion of the fourth iteration Sierpinski carpet is already very close to the third iteration dispersion. This convergence indicates that the result is representative for the real fractal at infinite iteration.
+There is a close resemblance between the carpet (Fig.~\ref{fig:prb18:dispersion}~a)) and a square sample (Fig. \ref{fig:prb18:dispersion}~b)). The dispersion of the carpet has extra broadening, similar to the broadening found in systems with disorder~\cite{jin_screening_2015}. However, generally speaking, both curves look like a regular $\varepsilon(\omega) \propto \sqrt{q}$ dispersion relation for surface plasmons \cite{giuliani2005quantum}. The carpet exhibits no translational invariance, \textit{i.e.}, $q$ is not actually a good quantum number, so this behavior is quite remarkable. The dispersion of the fourth iteration Sierpinski carpet is already very close to the third iteration dispersion. This convergence indicates that the result is representative for the real fractal at infinite iteration.
 
 For the Sierpinski gasket (Fig.~\ref{fig:prb18:dispersion}~c)), we observe different behavior. This fractal does not closely follow the dispersion relation of a triangle built out of a triangular lattice (Fig.~\ref{fig:prb18:dispersion}~d)).  Instead, we can clearly see the formation of modes with a nearly flat dispersion, which means that they are localized, as the Fourier transform of the dielectric function is only weakly dependent on $q$. Again, this result is reasonably converged.
 
 \section{Discussion}
 
-Concluding, in this chapter we have calculated the plasmon dispersion for the Sierpinski carpet and Sierpinski gasket. The Sierpinski carpet has a plasmon dispersion comparable to the dispersion of a square lattice, whereas the gasket exhibits highly localized plasmon modes. More generally, a finitely ramified fractal can exhibit strong plasmon confinement, providing a novel setting for the manipulation of light at the quantum scale. With current experimental techniques, these results can be probed experimentally. Moreover, we have presented a rigorous approach for calculating plasmonic properties of generic tight-binding systems, published as an open source software project~\cite{Westerhout2017}. We believe that this code can be very useful for future projects relating to plasmonic properties of non-translationally invariant systems.
+Concluding, in this chapter we have calculated the plasmon dispersion for the Sierpinski carpet and Sierpinski gasket. The Sierpinski carpet has a plasmon dispersion comparable to the dispersion of a square lattice, whereas the gasket exhibits highly localized plasmon modes. More generally, a finitely ramified fractal can exhibit strong plasmon confinement, providing a novel setting for the manipulation of light at the quantum scale. With current experimental techniques, these results can be probed experimentally. Moreover, we have presented a rigorous approach for calculating plasmonic properties of generic tight-binding systems, published as an open source software project~\cite{Westerhout2017}. We believe that this code may be useful for future projects relating to plasmonic properties of non-translationally invariant systems.
 
 \section{Additional resources}
 
-\QRListItem{https://github.com/twesterhout/plasmon-cpp}{Source code is available on GitHub. It contains a C++ implementation of Eq.~\eqref{eq:prb18:diel_func} that was used for all calculations in this chapter.}
+\QRListItem{https://github.com/twesterhout/plasmon-cpp}{The source code for the plasmon-cpp package is available at\\ \url{https://github.com/twesterhout/plasmon-cpp}. It contains a C++ implementation of Eq.~\eqref{eq:prb18:diel_func} that was used for all calculations in this chapter. This software is released under the MIT license.} 
 
-\QRListItem{https://doi.org/10.5281/zenodo.14894183}{Zenodo dataset with raw data to reproduce all figures in this chapter. The figures can be re-generated from raw data by running \texttt{nix build github:twesterhout/phd-thesis\#PRB\_97\_20\_205434\_2018}.}
+\QRListItem{https://doi.org/10.5281/zenodo.14894183}{The raw data supporting the conclusions of this chapter are available at \url{https://doi.org/10.5281/zenodo.14894183}. The dataset is released under the CC BY 4.0 license.}
+
+\noindent All figures in this chapter can be generated from raw data by running the following command
+\begin{minted}{bash}
+    nix build github:twesterhout/phd-thesis#PRB_97_20_205434_2018
+\end{minted}
