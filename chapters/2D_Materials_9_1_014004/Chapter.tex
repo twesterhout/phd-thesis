@@ -1,11 +1,9 @@
+\cleartoverso
+\thispagestyle{empty}%
+\BgThisPage
+\clearpage
 \chapter[Quantum dot-like plasmonic modes in twisted bilayer graphene supercells][Quantum dot-like plasmonic modes in twisted bilayer graphene supercells]{Quantum dot-like plasmonic modes in twisted bilayer graphene supercells}\label{ch:mat22}
-% \chapter[\MultilineTitle{Quantum dot-like plasmonic modes in twisted bilayer graphene supercells}][Quantum dot-like plasmonic modes in twisted bilayer graphene supercells]{Quantum dot-like plasmonic modes in twisted bilayer graphene supercells}\label{ch:mat22}
-
-% \author{T. Westerhout}
-% \author{M. I. Katsnelson}
-% \author{M. R\"osner}
-% \email{m.roesner@science.ru.nl}
-% \affiliation{Institute for Molecules and Materials, Radboud University, Heijendaalseweg  135, 6525 AJ Nijmegen, The Netherlands}
+\BgThisPage
 
 {\small We derive a material-realistic real-space many-body Hamiltonian for twisted bilayer graphene from first principles, including both single-particle hopping terms for $p_z$ electrons and their long-range Coulomb interaction. By disentangling low- and high-energy subspaces of the electronic dispersion, we are able to utilize state-of-the-art constrained Random Phase Approximation calculations to reliably describe the non-local background screening from the high-energy $s$, $p_x$, and $p_y$ electron states which we find to be independent of the bilayer stacking and thus of the twisting angle. The twist-dependent low-energy screening from $p_z$ states is subsequently added to obtain a full screening model.  We use this modeling scheme to study plasmons in electron-doped twisted bilayer graphene supercells. We find that the finite system size yields discretized plasmonic levels, which are controlled by the system size, doping level, and twisting angle. This tunability together with atomic-like charge distributions of some of the excitations renders these plasmonic excitations remarkably similar to the electronic states in electronic quantum dots. To emphasize this analogy in the following we refer to these supercells as \emph{plasmonic quantum dots}.  Based on a careful comparison to pristine AB-stacked bilayer graphene plasmons, we show that two kinds of plasmonic excitations arise, which differ in their layer polarization. Depending on this layer polarization, the resulting plasmonic quantum dot states are either significantly or barely dependent on the twisting angle. Due to their tunability and their coupling to light, these plasmonic quantum dots form a versatile and promising platform for tailored light-matter interactions.}
 
@@ -82,10 +80,17 @@ In the following we derive all the necessary model parameters from \textit{ab in
 \end{figure}
     
 In order to derive all model parameters for arbitrary twist angles via down folding of first principles calculations we have to make one well justified approximation: only the $p_z$ states will experience the moir\'e potential and thus the twist angle $\theta$.  To stress the validity of this assumption we show in Fig.~\ref{fig:mat22:ab}~a) the $sp^2$-projected Density Functional Theory (DFT) density of states (DOS) of pristine AA-stacked (green) and AB-stacked (pinkish red) bilayer graphene. Their difference is nearly invisible so that we can readily assume that the relative layer rotation does not affect these electronic states. This, of course, does not hold for the $p_z$ states, as is obvious from $p_z$-projected DOS shown in Fig.~\ref{fig:mat22:ab}~b).
-            
+
+Based on this assumption we can derive the single-particle hopping matrix elements $t_{ij}$ for the $p_z$ states via a Wannier construction based on DFT calculations for the AB-stacked bilayer graphene.% (see section~\ref{sec:mat22:app_ab} for details).
+We calculate the hopping matrix elements via
+\begin{equation*}
+    t_{ij}(\theta=0\degree) = \braket{ w_i | H_\text{DFT}^{AB} | w_j }
+\end{equation*}
+for the untwisted ($\theta=0\degree$) geometry and using the DFT Hamiltonian together with the $p_z$-like \textit{ab initio} Wannier functions $w_i(r)$. In Table~\ref{tbl:mat22:hoppings} we list the resulting intralayer and interlayer hopping matrix elements for an interlayer distance of $d=3.35\,$\AA. To account for finite twisting angles on the single-particle level, we utilize a Slater-Koster based interlayer hopping model~\cite{guinea_continuum_2019} $t_\perp(r) = \gamma_0 \operatorname{exp}[-\alpha (r-r_0)]$, which we fit to the interlayer hopping matrix elements from Table~\ref{tbl:mat22:hoppings} to obtain $\gamma_0 = 0.29\,$eV and $\alpha = 5.63\,\text{\AA}^{-1}$. As mentioned above, for small twist angles one would additionally need to account for modulations in the interlayer distance~\cite{wijk_relaxation_2015,shi_large-area_2020,gornostyrev_origin_2020}, but here we are interested in moderate to large twist angles such that the assumption of a purely nominal twisting is adequate.
+
 \normalcaptionwidth
 \captionwidth{\linewidth}
-\begin{table}[h]
+\vspace{-0.2cm}\begin{table}[h]
   \centering
   \begin{minipage}[t]{0.45\textwidth}%
     \centering
@@ -119,30 +124,24 @@ In order to derive all model parameters for arbitrary twist angles via down fold
 \changecaptionwidth
 \captionwidth{0.9\linewidth}
 
-Based on this assumption we can derive the single-particle hopping matrix elements $t_{ij}$ for the $p_z$ states via a Wannier construction based on DFT calculations for the AB-stacked bilayer graphene.% (see section~\ref{sec:mat22:app_ab} for details).
-We calculate the hopping matrix elements via 
-\begin{equation*}
-    t_{ij}(\theta=0\degree) = \braket{ w_i | H_\text{DFT}^{AB} | w_j }
-\end{equation*}
-for the untwisted ($\theta=0\degree$) geometry and using the DFT Hamiltonian together with the $p_z$-like \textit{ab initio} Wannier functions $w_i(r)$. In Table~\ref{tbl:mat22:hoppings} we list the resulting intralayer and interlayer hopping matrix elements for an interlayer distance of $d=3.35\,$\AA. To account for finite twisting angles on the single-particle level, we utilize a Slater-Koster based interlayer hopping model~\cite{guinea_continuum_2019} $t_\perp(r) = \gamma_0 \operatorname{exp}[-\alpha (r-r_0)]$, which we fit to the interlayer hopping matrix elements from Table~\ref{tbl:mat22:hoppings} to obtain $\gamma_0 = 0.29\,$eV and $\alpha = 5.63\,\text{\AA}^{-1}$. As mentioned above, for small twist angles one would additionally need to account for modulations in the interlayer distance~\cite{wijk_relaxation_2015,shi_large-area_2020,gornostyrev_origin_2020}, but here we are interested in moderate to large twist angles such that the assumption of a purely nominal twisting is adequate.
- 
-The description of fully screened, retarded and $\theta$-dependent Coulomb interaction $W(\omega, \theta)$ requires more attention. $W(\omega, \theta)$ is defined by 
-\begin{align}\label{eq:mat22:W_full}
+\vspace{-0.2cm}The description of fully screened, retarded and $\theta$-dependent Coulomb interaction $W(\omega, \theta)$ requires more attention. $W(\omega, \theta)$ is defined by
+\vspace{-0.1cm}\begin{align}\label{eq:mat22:W_full}
     W(\omega, \theta) = \frac{v}{1 - v \Pi^\text{total}(\omega, \theta)} \,,
 \end{align}
 where $v$ is the bare Coulomb interaction. $\Pi^\text{total}(\omega, \theta)$ renders all possible screening processes at a given rotation angle $\theta$ which can be separated into two terms:
-\begin{align*}
+\vspace{-0.1cm}\begin{align*}
      \Pi^\text{total}(\omega, \theta) \approx 
          \Pi^{p_z}(\omega, \theta) + \Pi^\text{rest}(\omega = 0),
 \end{align*}
 with $\Pi^{p_z}(\omega, \theta)$ being the partial polarizability resulting from virtual excitations within the low-energy $p_z$ sub-space. It can be evaluated using Eq.~(\ref{eq:mat22:Pi_pz}). The rest polarizability $\Pi^\text{rest}(\omega = 0)$ describes in principle instantaneous screening processes from virtual excitations from, to, and between non-$p_z$ states (such as $sp^2$ and others). Due to the orthogonality of $p_z$ and $sp^2$ states, the cross-polarization terms between $p_z$ and non-$p_z$ orbitals can be safely neglected~\cite{van_loon_random_2021}. This way, $\Pi^\text{rest}$ effectively describes the screening of a semiconductor with a gap of about $10\,$eV [see Fig.~\ref{fig:mat22:ab}~a)], which renders the  instantaneous approximation valid. Importantly, this renders the background (or rest) polarizability independent of the twist angle. Eq.~(\ref{eq:mat22:W_full}) now reads
+
 \begin{align*}
     W(\omega, \theta) 
     &= \frac{v}{1 - v \left[\Pi^{p_z}(\omega, \theta) + \Pi^\text{rest}(\omega = 0)\right]}\\
     &= \frac{U}{1 - U \Pi^{p_z}(\omega, \theta)}\,, \notag \\
     \text{with} \qquad U &= \frac{v}{1 - v \Pi^\text{rest}(\omega = 0)}
 \end{align*}
-being the $\theta$-independent background-screened Coulomb interaction, as needed for the evaluation of Eq.~(\ref{eq:mat22:Eps_pz}). We calculate $U$ within the constrained RPA~\cite{cRPA} based on \textit{ab initio} calculations for AB-stacked bilayer graphene.% (see section~\ref{sec:mat22:app_ab} for details).
+\noindent being the $\theta$-independent background-screened Coulomb interaction, as needed for the evaluation of Eq.~(\ref{eq:mat22:Eps_pz}). We calculate $U$ within the constrained RPA~\cite{cRPA} based on \textit{ab initio} calculations for AB-stacked bilayer graphene.% (see section~\ref{sec:mat22:app_ab} for details).
 This yields discretized $U_{ij}$ with $i$, $j$ labeling AB bilayer graphene lattice positions. To check for the $\theta$ independence of $U$ we compared the local and nearest-neighbor (in and out-of-plane) Coulomb interactions $U_{ij}$ between AB and AA stacked bilayer, finding modifications smaller than $3\%$. For the evaluation of Eq.~\eqref{eq:mat22:Eps_pz} we, however, need to evaluate $U_{ij}$ at other positions resulting from the finite twisting angle $\theta$. To this end, we map the discretized $U_{ij}$ to a continuous model $U(r = r_i - r_j)$. For the latter we choose the analytic image-charge model for the potential within a dielectric slab of height $d$ reading~\cite{keldysh_coulomb_1979,jena_enhancement_2007,emelyanenko_effect_2008,jiang_plasmonic_2021}:
 \begin{equation} \label{eq:mat22:image-charge-model}
     U(r) =

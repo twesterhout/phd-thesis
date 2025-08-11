@@ -22,7 +22,7 @@
     latexPackages = texlive: texlive.combine {
       inherit (texlive)
         scheme-small
-	      adjustbox algorithm2e amsfonts amsmath babel bigfoot braket changes cfr-initials cm-super cprotect dvipng enumitem etoolbox
+	      adjustbox algorithm2e amsfonts amsmath babel background bigfoot braket changes cfr-initials cm-super cprotect dvipng enumitem etoolbox
 	      float fontspec framed gensymb graphics hycolor hyperref ifoddpage iftex import lettrine
 	      ltxcmds mathspec memoir microtype minted natbib ninecolors notes2bib pgf pgfplots qrcode
 	      relsize sfmath snapshot tabularray todonotes type1cm ulem url xcolor xpatch xstring sourceserifpro

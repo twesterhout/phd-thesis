@@ -1,4 +1,9 @@
+\cleartoverso
+\thispagestyle{empty}%
+\BgThisPage
+\clearpage
 \chapter[Implementing scalable matrix-vector products for the exact diagonalization methods in quantum many-body physics][Scalable matrix-vector products for exact diagonalization]{Implementing scalable matrix-vector products for the exact diagonalization methods in quantum many-body physics}\label{ch:paw-atm}
+\BgThisPage
 
 {\small Exact diagonalization is a well-established method for simulating small quantum systems. Its applicability is limited by the exponential growth of the Hamiltonian matrix that needs to be diagonalized. Physical symmetries are usually utilized to reduce the matrix dimension, and distributed-memory parallelism is employed to explore larger systems. This chapter focuses on an implementation of the core distributed algorithms, with a special emphasis on the matrix-vector product. Instead of the conventional MPI+X paradigm, Chapel is chosen as the language in this work. We provide a comprehensive description of the algorithms and present performance and scalability tests. Our implementation outperforms the state-of-the-art MPI-based solution by a factor of 7--8 on 32 compute nodes or 4096 cores and scales well through 256 nodes or $32\,768$ cores. The implementation has 3 times fewer software lines of code than the current state of the art, but is still able to handle generic Hamiltonians.}
  

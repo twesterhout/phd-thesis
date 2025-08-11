@@ -131,8 +131,11 @@
 
 \definecolor{myGreen}{rgb}{0.47,0.62,0.11}
 \definecolor{myOrange}{rgb}{0.85,0.37,0.008}
+\definecolor{myBackgroundColor}{HTML}{FFF9E2}
 \newcommand{\cmark}{{\color{myGreen}\Large\ding{51}}}%
 \newcommand{\xmark}{{\color{myOrange}\Large\ding{55}}}%
+
+\newcommand{\BgThisPage}{\tikz[remember picture,overlay]\fill[opacity=1.0,color=myBackgroundColor,blend mode=multiply] (current page.north west) rectangle (current page.south east);}
 
 
 %define colors
@@ -150,8 +153,6 @@
 % \renewcommand*\glspostdescription{\dotfill}
 
 % Chapter indicators
-% \usepackage{background}
-% \usepackage{tikz}
 % \usetikzlibrary{calc}
 
 \usepackage{tabularray}
@@ -368,9 +369,9 @@
 % \newcommand{\PublishedUrl}{}
 % \newcommand{\GraphicalAbstract}{}
 
-% \newcommand{\ThisPageBackground}[1]{%
-% \tikz[remember picture,overlay] \fill [opacity=0.15,color=#1] (current page.north west) rectangle (current page.south east);%
-% }
+\newcommand{\ThisPageBackground}[1]{%
+  \tikz[remember picture,overlay] \fill [opacity=0.15,color=#1] (current page.north west) rectangle (current page.south east);%
+}
 % \newcommand{\ThisPageBackgroundColor}{}
 
 % \makechapterstyle{MyFancyChapter}{
